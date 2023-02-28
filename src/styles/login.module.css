@@ -1,0 +1,49 @@
+.container{
+    height: 100vh;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-image: url("/public/images/login-bg.jpg");
+    background-size: contain;
+}
+
+.form{
+    padding: 1%;
+    margin-right: 5%;
+    height: 20em;
+    width: 20em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+}
+
+.formDiv{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+label{
+    color: #fff;
+}
+
+.input{
+    height: 2.1em;
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    outline: 0;
+}
+
+.submitBtn{
+    margin-top: 5%;
+    width: 100%;
+    height: 2.1em;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
