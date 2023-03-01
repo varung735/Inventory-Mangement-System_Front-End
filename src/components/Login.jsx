@@ -14,7 +14,7 @@ function Login() {
                 <label htmlFor="password">Password</label>
                 <input type="password" name='password' placeholder='Enter Your Password Here' id='password-field' className={LoginCSS.input} required/>
             </div>
-            <button className={LoginCSS.submitBtn}>Submit</button>
+            <button className={LoginCSS.submitBtn}>SUBMIT</button>
         </form>
     </div>
   )
