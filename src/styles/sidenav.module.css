@@ -1,0 +1,31 @@
+.container{
+    height: 100%;
+    width: 16%;
+    border-right: 1px solid #000;
+    display: flex;
+    flex-direction: column;
+    /* border-top: 1px solid #000; */
+}
+
+.sideNavLink{
+    height: 5%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease-in;
+}
+
+.sideNavLink:hover{
+    background-color: #62A0CF;
+}
+
+.sideNavLink:last-child{
+    margin-top: auto;
+}
+
+.link{
+    font-size: 1.3em;
+    font-weight: 500;
+}
