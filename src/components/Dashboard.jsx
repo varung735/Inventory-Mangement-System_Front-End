@@ -1,9 +1,17 @@
 import React, { useState } from 'react'
 import dashboardCSS from '../styles/dashboard.module.css'
+import PurchaseData from './PurchaseData';
+import SalesData from './SalesData';
 import SideNav from './SideNav'
 
 function Dashboard() {
-  const [sideNavOpen, setSideNavOpen] = useState(false);
+  const [sideNavOpen, setSideNavOpen] = useState(true);
+  const [sidenavLink, setSideNavLink] = useState("sales");
+
+  const getSideNavLink = (link) => {
+    console.log(link);
+    setSideNavLink(link);
+  }
 
   return (
     <div className={dashboardCSS.container}>
@@ -18,10 +26,15 @@ function Dashboard() {
       <div className={dashboardCSS.mainContent}>
 
         {/* sidenav */}
-        {sideNavOpen && <SideNav />}
+        <div style={sideNavOpen ? {width: "16%"} : {width: "0%"}}>
+          {sideNavOpen && <SideNav link={getSideNavLink}/>}
+        </div>
 
         {/* Main Content */}
-        
+        <div className={dashboardCSS.displayData} style={sideNavOpen ? {width: "84%"} : {width: "100%"}}>
+          {sidenavLink === "sales" && <SalesData />}
+          {sidenavLink === "purchases" && <PurchaseData />}
+        </div>
 
       </div>
     </div>

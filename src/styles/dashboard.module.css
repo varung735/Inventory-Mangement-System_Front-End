@@ -25,4 +25,9 @@
 
 .mainContent{
     height: 94%;
+    display: flex;
+}
+
+.displayData{
+    width: 100%;
 }
