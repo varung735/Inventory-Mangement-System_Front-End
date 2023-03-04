@@ -6,7 +6,7 @@ function PurchaseData() {
   return (
     <div className={displayDataCSS.container}>
         <div className={displayDataCSS.buttons}>
-            <button className={displayDataCSS.button}>Add Purchase</button>
+            <button className={displayDataCSS.button}>ADD PURCHASE</button>
         </div>
 
         <div className={displayDataCSS.showData}>
@@ -18,7 +18,54 @@ function PurchaseData() {
 
 function DataProp() {
   return(
-    <div>Data Prop</div>
+    <div className={displayDataCSS.dataProp}>
+      <table className={displayDataCSS.table}>
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Type</th>
+            <th>Selling Price</th>
+            <th>Sold At</th>
+            <th>Units Sold</th>
+            <th>Added By</th>
+            <th>Update</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id='data'>
+            <td>Product Name</td>
+            <td>Product Type</td>
+            <td>1500</td>
+            <td>1600</td>
+            <td>50</td>
+            <td>Pradeep</td>
+            <td><button>Update</button></td>
+            <td><button>Delete</button></td>
+          </tr>
+          <tr id='data'>
+            <td>Product Name</td>
+            <td>Product Type</td>
+            <td>1500</td>
+            <td>1600</td>
+            <td>50</td>
+            <td>Pradeep</td>
+            <td><button>Update</button></td>
+            <td><button>Delete</button></td>
+          </tr>
+          <tr id='data'>
+            <td>Product Name</td>
+            <td>Product Type</td>
+            <td>1500</td>
+            <td>1600</td>
+            <td>50</td>
+            <td>Pradeep</td>
+            <td><button>Update</button></td>
+            <td><button>Delete</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   );
 }
 

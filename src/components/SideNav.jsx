@@ -3,13 +3,18 @@ import sideNavCSS from "../styles/sidenav.module.css";
 
 function SideNav({ link }) {
 
+   const sideNavLink = (event) => {
+      console.log(event.target.className);
+      link(event.target.id)
+   }
+
   return (
     <div className={sideNavCSS.container}>
-       <div className={sideNavCSS.sideNavLink} onClick={() => {link("sales")}}>
-          <h1 className={sideNavCSS.link}>Sales</h1>
+       <div className={`${sideNavCSS.sideNavLink}`} onClick={(event) => {sideNavLink(event)}}>
+          <h1 className={sideNavCSS.link} id={"sales"}>Sales</h1>
        </div>
-       <div className={sideNavCSS.sideNavLink} onClick={() => {link("purchases")}}>
-          <h1 className={sideNavCSS.link}>Purchases</h1>
+       <div className={sideNavCSS.sideNavLink} onClick={(event) => {sideNavLink(event)}}>
+          <h1 className={sideNavCSS.link} id={"purchases"}>Purchases</h1>
        </div>
        <div className={sideNavCSS.sideNavLink} onClick={() => {link("Expenses")}}>
           <h1 className={sideNavCSS.link}>Expenses</h1>

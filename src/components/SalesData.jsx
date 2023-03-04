@@ -5,7 +5,7 @@ function SalesData() {
   return (
     <div className={displayDataCSS.container}>
         <div className={displayDataCSS.buttons}>
-            <button className={displayDataCSS.button}>Add Sales</button>
+            <button className={displayDataCSS.button}>ADD SALES</button>
         </div>
 
         <div className={displayDataCSS.showData}>

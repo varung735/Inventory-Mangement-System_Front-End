@@ -9,7 +9,6 @@ function Dashboard() {
   const [sidenavLink, setSideNavLink] = useState("sales");
 
   const getSideNavLink = (link) => {
-    console.log(link);
     setSideNavLink(link);
   }
 

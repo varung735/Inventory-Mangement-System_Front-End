@@ -29,3 +29,7 @@
     font-size: 1.3em;
     font-weight: 500;
 }
+
+.active{
+    background-color: #62A0CF;
+}
