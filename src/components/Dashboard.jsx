@@ -2,7 +2,12 @@ import React, { useState } from 'react'
 import dashboardCSS from '../styles/dashboard.module.css'
 import PurchaseData from './PurchaseData';
 import SalesData from './SalesData';
-import SideNav from './SideNav'
+import SideNav from './SideNav';
+import ExpenseData from "./ExpenseData";
+import InventoryData from "./InventoryData";
+import StockData from "./StockData";
+import EmployeesData from "./EmployeesData";
+import SalaryData from "./SalaryData";
 
 function Dashboard() {
   const [sideNavOpen, setSideNavOpen] = useState(true);
@@ -33,6 +38,11 @@ function Dashboard() {
         <div className={dashboardCSS.displayData} style={sideNavOpen ? {width: "84%"} : {width: "100%"}}>
           {sidenavLink === "sales" && <SalesData />}
           {sidenavLink === "purchases" && <PurchaseData />}
+          {sidenavLink === "expenses" && <ExpenseData />}
+          {sidenavLink === "inventory" && <InventoryData />}
+          {sidenavLink === "stock" && <StockData />}
+          {sidenavLink === "employees" && <EmployeesData />}
+          {sidenavLink === "salary" && <SalaryData />}
         </div>
 
       </div>

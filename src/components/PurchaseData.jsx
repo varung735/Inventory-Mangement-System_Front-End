@@ -22,11 +22,11 @@ function DataProp() {
       <table className={displayDataCSS.table}>
         <thead>
           <tr>
-            <th>Product Name</th>
+            <th>Purchase Name</th>
             <th>Type</th>
-            <th>Selling Price</th>
-            <th>Sold At</th>
-            <th>Units Sold</th>
+            <th>Cost</th>
+            <th>Quantity</th>
+            <th>Unit</th>
             <th>Added By</th>
             <th>Update</th>
             <th>Delete</th>
@@ -37,31 +37,31 @@ function DataProp() {
             <td>Product Name</td>
             <td>Product Type</td>
             <td>1500</td>
-            <td>1600</td>
             <td>50</td>
+            <td>Kgs.</td>
             <td>Pradeep</td>
-            <td><button>Update</button></td>
-            <td><button>Delete</button></td>
+            <td><button className={displayDataCSS.tabBtn}>Update</button></td>
+            <td><button className={displayDataCSS.tabBtn}>Delete</button></td>
           </tr>
           <tr id='data'>
             <td>Product Name</td>
             <td>Product Type</td>
             <td>1500</td>
-            <td>1600</td>
-            <td>50</td>
+            <td>500</td>
+            <td>units</td>
             <td>Pradeep</td>
-            <td><button>Update</button></td>
-            <td><button>Delete</button></td>
+            <td><button className={displayDataCSS.tabBtn}>Update</button></td>
+            <td><button className={displayDataCSS.tabBtn}>Delete</button></td>
           </tr>
           <tr id='data'>
             <td>Product Name</td>
             <td>Product Type</td>
             <td>1500</td>
-            <td>1600</td>
-            <td>50</td>
+            <td>25</td>
+            <td>Kgs</td>
             <td>Pradeep</td>
-            <td><button>Update</button></td>
-            <td><button>Delete</button></td>
+            <td><button className={displayDataCSS.tabBtn}>Update</button></td>
+            <td><button className={displayDataCSS.tabBtn}>Delete</button></td>
           </tr>
         </tbody>
       </table>

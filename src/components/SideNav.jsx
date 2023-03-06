@@ -4,34 +4,33 @@ import sideNavCSS from "../styles/sidenav.module.css";
 function SideNav({ link }) {
 
    const sideNavLink = (event) => {
-      console.log(event.target.className);
-      link(event.target.id)
+      link(event.target.classList[1]);
    }
 
   return (
     <div className={sideNavCSS.container}>
-       <div className={`${sideNavCSS.sideNavLink}`} onClick={(event) => {sideNavLink(event)}}>
-          <h1 className={sideNavCSS.link} id={"sales"}>Sales</h1>
+       <div className={`${sideNavCSS.sideNavLink} ${"sales"}`} onClick={(event) => {sideNavLink(event)}}>
+          <h1 className={`${sideNavCSS.link} ${"sales"}`} >Sales</h1>
+       </div>
+       <div className={`${sideNavCSS.sideNavLink} ${"purchases"}`} onClick={(event) => {sideNavLink(event)}}>
+          <h1 className={`${sideNavCSS.link} ${"purchases"}`}>Purchases</h1>
+       </div>
+       <div className={`${sideNavCSS.sideNavLink} ${"expenses"}`} onClick={(event) => {sideNavLink(event)}}>
+          <h1 className={`${sideNavCSS.link} ${"expenses"}`}>Expenses</h1>
+       </div>
+       <div className={`${sideNavCSS.sideNavLink} ${"inventory"}`} onClick={(event) => {sideNavLink(event)}}>
+          <h1 className={`${sideNavCSS.link} ${"inventory"}`}>Inventory</h1>
+       </div>
+       <div className={`${sideNavCSS.sideNavLink} ${"stock"}`} onClick={(event) => {sideNavLink(event)}}>
+          <h1 className={`${sideNavCSS.link} ${"stock"}`}>Stock</h1>
+       </div>
+       <div className={`${sideNavCSS.sideNavLink} ${"employees"}`} onClick={(event) => {sideNavLink(event)}}>
+          <h1 className={`${sideNavCSS.link} ${"employees"}`}>Employees</h1>
+       </div>
+       <div className={`${sideNavCSS.sideNavLink} ${"salary"}`} onClick={(event) => {sideNavLink(event)}}>
+          <h1 className={`${sideNavCSS.link} ${"salary"}`}>Salary</h1>
        </div>
        <div className={sideNavCSS.sideNavLink} onClick={(event) => {sideNavLink(event)}}>
-          <h1 className={sideNavCSS.link} id={"purchases"}>Purchases</h1>
-       </div>
-       <div className={sideNavCSS.sideNavLink} onClick={() => {link("Expenses")}}>
-          <h1 className={sideNavCSS.link}>Expenses</h1>
-       </div>
-       <div className={sideNavCSS.sideNavLink} onClick={() => {link("inventory")}}>
-          <h1 className={sideNavCSS.link}>Inventory</h1>
-       </div>
-       <div className={sideNavCSS.sideNavLink} onClick={() => {link("stock")}}>
-          <h1 className={sideNavCSS.link}>Stock</h1>
-       </div>
-       <div className={sideNavCSS.sideNavLink} onClick={() => {link("employees")}}>
-          <h1 className={sideNavCSS.link}>Employees</h1>
-       </div>
-       <div className={sideNavCSS.sideNavLink} onClick={() => {link("salary")}}>
-          <h1 className={sideNavCSS.link}>Salary</h1>
-       </div>
-       <div className={sideNavCSS.sideNavLink} onClick={() => {link("logout")}}>
           <h1 className={sideNavCSS.link}>Log Out</h1>
        </div>
     </div>

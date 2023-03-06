@@ -25,15 +25,33 @@
 
 thead{
     height: 3em;
-    background-color: #000;
+    background-color: #5390C6;
     color: #fff;
+}
+
+tr{
+    height: 2.2em;
 }
 
 td, tr{
     text-align: center;
 }
 
-tbody tr:nth-child(odd){
-    background-color: #d2d2d2;
+tbody tr:nth-child(even){
+    background-color: #F0F0F0;
+}
 
+tbody tr:hover{
+    background-color: #DADADA;
+}
+
+.tabBtn{
+    height: 2em;
+    width: 5em;
+    border: none;
+    border-radius: 8px;
+    background-color: #8ABAE0;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
 }
