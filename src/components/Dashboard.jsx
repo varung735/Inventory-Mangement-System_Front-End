@@ -8,6 +8,7 @@ import InventoryData from "./InventoryData";
 import StockData from "./StockData";
 import EmployeesData from "./EmployeesData";
 import SalaryData from "./SalaryData";
+import LedgerData from "./LedgerData";
 
 function Dashboard() {
   const [sideNavOpen, setSideNavOpen] = useState(true);
@@ -43,6 +44,7 @@ function Dashboard() {
           {sidenavLink === "stock" && <StockData />}
           {sidenavLink === "employees" && <EmployeesData />}
           {sidenavLink === "salary" && <SalaryData />}
+          {sidenavLink === "ledger" && <LedgerData />}
         </div>
 
       </div>

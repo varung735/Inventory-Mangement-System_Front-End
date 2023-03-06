@@ -23,7 +23,7 @@ function DataProp() {
           <tr>
             <th>Stock Item</th>
             <th>Category</th>
-            <th>COst</th>
+            <th>Cost (in Rs.)</th>
             <th>Available</th>
             <th>Unit</th>
             <th>Added By</th>
