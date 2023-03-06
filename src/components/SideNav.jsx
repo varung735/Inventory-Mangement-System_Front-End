@@ -7,6 +7,10 @@ function SideNav({ link }) {
       link(event.target.classList[1]);
    }
 
+   // const activeLink = (event) => {
+
+   // }
+
   return (
     <div className={sideNavCSS.container}>
        <div className={`${sideNavCSS.sideNavLink} ${"sales"}`} onClick={(event) => {sideNavLink(event)}}>
@@ -29,6 +33,9 @@ function SideNav({ link }) {
        </div>
        <div className={`${sideNavCSS.sideNavLink} ${"salary"}`} onClick={(event) => {sideNavLink(event)}}>
           <h1 className={`${sideNavCSS.link} ${"salary"}`}>Salary</h1>
+       </div>
+       <div className={`${sideNavCSS.sideNavLink} ${"ledger"}`} onClick={(event) => {sideNavLink(event)}}>
+          <h1 className={`${sideNavCSS.link} ${"ledger"}`}>Ledger</h1>
        </div>
        <div className={sideNavCSS.sideNavLink} onClick={(event) => {sideNavLink(event)}}>
           <h1 className={sideNavCSS.link}>Log Out</h1>
