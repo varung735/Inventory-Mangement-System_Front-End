@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import displayDataCSS from "../styles/displaydata.module.css";
+import axios from "axios";
 
 function SalesData() {
+
+  const [sales, setSales] = useState(...[]);
+
+  useEffect(async () => {
+    const res = await axios.get('/sales/getSales');
+    console.log(res);
+    setSales(res.data.sales);
+  }, [sales])
+  
+
   return (
     <div className={displayDataCSS.container}>
       <div className={displayDataCSS.buttons}>
