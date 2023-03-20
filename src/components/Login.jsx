@@ -17,15 +17,30 @@ function Login() {
       password: password
     }
 
-    const res = await axios.post('/employees/login', data);
-    console.log(res);
+    // const res = await axios.post('/employees/login', data, { withCredentials: true });
 
-    if(res.data.success){
-      navigate('/dashboard');
+    try {
+      const res = await fetch('/employees/login', {
+        method: 'POST',
+        headers: {
+          'content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+      }).then(response => {console.log(response)})
+        .catch(error => console.log(error));
+      console.log(res.body);
+    } catch (error) {
+      console.log(error);
     }
-    else{
-      alert("Invalid Email or Password");
-    }
+
+    // console.log(res.headers);
+
+    // if(res.data.success){
+    //   navigate('/dashboard');
+    // }
+    // else{
+    //   alert("Invalid Email or Password");
+    // }
   }
 
   //to prevent default action of form

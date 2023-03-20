@@ -6,11 +6,15 @@ function SalesData() {
 
   const [sales, setSales] = useState(...[]);
 
-  useEffect(async () => {
+  const getSales = async () => {
     const res = await axios.get('/sales/getSales');
     console.log(res);
     setSales(res.data.sales);
-  }, [sales])
+  }
+
+  useEffect(() => {
+    getSales();
+  }, [sales]);
   
 
   return (

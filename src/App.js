@@ -6,7 +6,7 @@ import Login from './components/Login';
 
 function App() {
 
-  axios.defaults.baseURL = "https://ims-backend-3u4x.onrender.com";
+  axios.defaults.baseURL = "http://localhost:4000";
 
   return (
     <BrowserRouter>
