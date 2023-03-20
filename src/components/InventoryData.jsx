@@ -1,7 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import displayDataCSS from "../styles/displaydata.module.css";
 
 function InventoryData() {
+
+  const [inventory, setInventory] = useState(...[]);
+
+  const getInventories = async () => {
+
+    const res = await fetch('/inventories/getInventory', {
+      method: 'GET',
+      dataType: 'json',
+      headers: {
+        'Accept': 'application/json',
+        'content-Type': 'application/json'
+      },
+      credentials: 'include'
+    });
+
+    const resData = await res.json();
+    // console.log(resData.inventories);
+
+    setInventory(resData.inventories);
+  }
+
+  useEffect(() => {
+    getInventories();
+  }, []);
+
   return (
     <div className={displayDataCSS.container}>
       <div className={displayDataCSS.buttons}>
@@ -9,13 +34,13 @@ function InventoryData() {
       </div>
 
       <div className={displayDataCSS.showData}>
-        <DataProp />
+        <DataProp inventoryProp={inventory}/>
       </div>
     </div>
   )
 }
 
-function DataProp() {
+function DataProp({ inventoryProp }) {
   return (
     <div className={displayDataCSS.dataProp}>
       <table className={displayDataCSS.table}>
@@ -31,36 +56,26 @@ function DataProp() {
           </tr>
         </thead>
         <tbody>
-          <tr id='data'>
-            <td>Rubber</td>
-            <td>Raw Material</td>
-            <td>1600</td>
-            <td>Kgs</td>
-            <td>Pradeep</td>
-            <td><button className={displayDataCSS.tabBtn}>Update</button></td>
-            <td><button className={displayDataCSS.tabBtn}>Delete</button></td>
-          </tr>
-          <tr id='data'>
-            <td>Rubber</td>
-            <td>Raw Material</td>
-            <td>1600</td>
-            <td>Kgs</td>
-            <td>Pradeep</td>
-            <td><button className={displayDataCSS.tabBtn}>Update</button></td>
-            <td><button className={displayDataCSS.tabBtn}>Delete</button></td>
-          </tr>
-          <tr id='data'>
-            <td>Rubber</td>
-            <td>Raw Material</td>
-            <td>1600</td>
-            <td>Kgs</td>
-            <td>Pradeep</td>
-            <td><button className={displayDataCSS.tabBtn}>Update</button></td>
-            <td><button className={displayDataCSS.tabBtn}>Delete</button></td>
-          </tr>
+          { inventoryProp && inventoryProp.map((inventory) => {
+            return <TableRowProp key={inventory._id} inventory={inventory}/>
+          }) }
         </tbody>
       </table>
     </div>
+  );
+}
+
+function TableRowProp({ inventory }) {
+  return (
+    <tr id='data'>
+      <td>{inventory.item_name}</td>
+      <td>{inventory.type}</td>
+      <td>{inventory.quantity}</td>
+      <td>{inventory.unit}</td>
+      <td>{inventory.added_by}</td>
+      <td><button className={displayDataCSS.tabBtn}>Update</button></td>
+      <td><button className={displayDataCSS.tabBtn}>Delete</button></td>
+    </tr>
   );
 }
 

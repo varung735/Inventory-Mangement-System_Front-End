@@ -6,19 +6,19 @@ function SalesData() {
   const [sales, setSales] = useState(...[]);
 
   const getSales = async () => {
-    
+
     const res = await fetch('/sales/getSales', {
       method: 'GET',
       dataType: 'json',
-      headers:{
+      headers: {
         'Accept': 'application/json',
         'content-Type': 'application/json'
       },
       credentials: 'include'
     })
 
-    const resData = await res.json(); 
-    console.log(resData);
+    const resData = await res.json();
+    // console.log(resData);
 
     setSales(resData.sales);
   }
@@ -26,7 +26,7 @@ function SalesData() {
   useEffect(() => {
     getSales();
   }, []);
-  
+
 
   return (
     <div className={displayDataCSS.container}>
@@ -35,7 +35,7 @@ function SalesData() {
       </div>
 
       <div className={displayDataCSS.showData}>
-        <DataProp salesProp={sales}/>
+        <DataProp salesProp={sales} />
       </div>
     </div>
   )
@@ -52,6 +52,7 @@ function DataProp({ salesProp }) {
             <th>Selling Price</th>
             <th>Sold At</th>
             <th>Units Sold</th>
+            <th>Unit</th>
             <th>Added By</th>
             <th>Update</th>
             <th>Delete</th>
@@ -59,20 +60,27 @@ function DataProp({ salesProp }) {
         </thead>
         <tbody>
           {salesProp && salesProp.map((sale) => {
-            return <tr id='data'>
-              <td>{sale.product_name}</td>
-              <td>{sale.type}</td>
-              <td>{sale.selling_price}</td>
-              <td>{sale.sold_at}</td>
-              <td>{sale.units_sold}</td>
-              <td>{sale.unit}</td>
-              <td><button className={displayDataCSS.tabBtn}>Update</button></td>
-              <td><button className={displayDataCSS.tabBtn}>Delete</button></td>
-            </tr>
+            return <TableRowProp key={sale._id} saleProp={sale}/>
           })}
         </tbody>
       </table>
     </div>
+  );
+}
+
+function TableRowProp({ saleProp }) {
+  return (
+    <tr id='data'>
+      <td>{saleProp.product_name}</td>
+      <td>{saleProp.type}</td>
+      <td>{saleProp.selling_price}</td>
+      <td>{saleProp.sold_at}</td>
+      <td>{saleProp.units_sold}</td>
+      <td>{saleProp.unit}</td>
+      <td>{saleProp.added_by}</td>
+      <td><button className={displayDataCSS.tabBtn}>Update</button></td>
+      <td><button className={displayDataCSS.tabBtn}>Delete</button></td>
+    </tr>
   );
 }
 

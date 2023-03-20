@@ -1,7 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import displayDataCSS from "../styles/displaydata.module.css";
 
 function ExpenseData() {
+
+  const [expense, setExpense] = useState(...[]);
+
+  const getExpenses = async () => {
+
+    const res = await fetch('/expenses/getExpenses', {
+      method: 'GET',
+      dataType: 'json',
+      headers: {
+        'Accept': 'application/json',
+        'content-Type': 'application/json'
+      },
+      credentials: 'include'
+    });
+
+    const resData = await res.json();
+    // console.log(resData.expenses);
+
+    setExpense(resData.expenses);
+  }
+
+  useEffect(() => {
+    getExpenses();
+  }, []);
+
   return (
     <div className={displayDataCSS.container}>
       <div className={displayDataCSS.buttons}>
@@ -9,13 +34,13 @@ function ExpenseData() {
       </div>
 
       <div className={displayDataCSS.showData}>
-        <DataProp />
+        <DataProp expenseProp={expense}/>
       </div>
     </div>
   )
 }
 
-function DataProp() {
+function DataProp({ expenseProp }) {
   return (
     <div className={displayDataCSS.dataProp}>
       <table className={displayDataCSS.table}>
@@ -31,36 +56,26 @@ function DataProp() {
           </tr>
         </thead>
         <tbody>
-          <tr id='data'>
-            <td>Product Name</td>
-            <td>Product Type</td>
-            <td>XYZ co. Ltd.</td>
-            <td>1600</td>
-            <td>Pradeep</td>
-            <td><button className={displayDataCSS.tabBtn}>Update</button></td>
-            <td><button className={displayDataCSS.tabBtn}>Delete</button></td>
-          </tr>
-          <tr id='data'>
-            <td>Product Name</td>
-            <td>Product Type</td>
-            <td>PQR CO. Ltd.</td>
-            <td>1500</td>
-            <td>Pradeep</td>
-            <td><button className={displayDataCSS.tabBtn}>Update</button></td>
-            <td><button className={displayDataCSS.tabBtn}>Delete</button></td>
-          </tr>
-          <tr id='data'>
-            <td>Product Name</td>
-            <td>Product Type</td>
-            <td>ABC CO. Ltd.</td>
-            <td>1200</td>
-            <td>Pradeep</td>
-            <td><button className={displayDataCSS.tabBtn}>Update</button></td>
-            <td><button className={displayDataCSS.tabBtn}>Delete</button></td>
-          </tr>
+          { expenseProp && expenseProp.map((expense) => {
+            return <TableRowProp key={expense._id} expense={expense}/>
+          }) }
         </tbody>
       </table>
     </div>
+  );
+}
+
+function TableRowProp({ expense }) {
+  return (
+    <tr id='data'>
+      <td>{expense.expense_name}</td>
+      <td>{expense.type}</td>
+      <td>{expense.paid_to}</td>
+      <td>{expense.amount}</td>
+      <td>{expense.added_by}</td>
+      <td><button className={displayDataCSS.tabBtn}>Update</button></td>
+      <td><button className={displayDataCSS.tabBtn}>Delete</button></td>
+    </tr>
   );
 }
 

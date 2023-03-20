@@ -1,7 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import displayDataCSS from "../styles/displaydata.module.css";
 
 function LedgerData() {
+
+    const [ledger, setLedger] = useState(...[]);
+
+    const getLedgers = async () => {
+
+        const res = await fetch('/ledgers/getLedgers', {
+            method: 'GET',
+            dataType: 'json',
+            headers: {
+                'Accept': 'application/json',
+                'content-Type': 'application/json'
+            },
+            credentials: 'include'
+        });
+
+        const resData = await res.json();
+        // console.log(resData);
+
+        setLedger(resData.ledgers);
+    }
+
+    useEffect(() => {
+        getLedgers();
+    }, []);
+
     return (
         <div className={displayDataCSS.container}>
             <div className={displayDataCSS.buttons}>
@@ -9,20 +34,22 @@ function LedgerData() {
             </div>
 
             <div className={displayDataCSS.showData}>
-                <DataAccordion />
+                {ledger && ledger.map((ledger) => {
+                    return <DataAccordion key={ledger._id} ledgersProp={ledger} />
+                })}
             </div>
         </div>
     )
 }
 
-function DataAccordion() {
+function DataAccordion({ ledgersProp }) {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
         <div className={displayDataCSS.accordion}>
-            <div className={displayDataCSS.accordionName} onClick={() => {setIsOpen(!isOpen)}}>
-                <h1 className={displayDataCSS.accTitle}>Account_Name</h1>
-                {isOpen ? <img src="/images/minus.svg" alt="minus.svg" className={displayDataCSS.accIcon} /> : 
+            <div className={displayDataCSS.accordionName} onClick={() => { setIsOpen(!isOpen) }}>
+                <h1 className={displayDataCSS.accTitle}>{ledgersProp.account_of}</h1>
+                {isOpen ? <img src="/images/minus.svg" alt="minus.svg" className={displayDataCSS.accIcon} /> :
                     <img src="/images/plus.svg" alt="plus.svg" className={displayDataCSS.accIcon} />
                 }
             </div>
@@ -31,21 +58,21 @@ function DataAccordion() {
                     <button className={displayDataCSS.accBtn}>Add Entry</button>
                     <button className={displayDataCSS.accBtn}>Export Data</button>
                 </div>
-                <DataProp />
+                <DataProp entriesProp={ ledgersProp.entries } />
             </div>}
         </div>
     );
 }
 
-function DataProp() {
+function DataProp({ entriesProp }) {
+
     return (
         <div className={displayDataCSS.dataProp}>
             <table className={displayDataCSS.table}>
                 <thead>
                     <tr>
                         <th>Date</th>
-                        <th>Description</th>
-                        <th>Voucher No.</th>
+                        {/* <th>Description</th> */}
                         <th>Debit</th>
                         <th>Credit</th>
                         <th>Balance</th>
@@ -54,40 +81,27 @@ function DataProp() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr id='data'>
-                        <td>12 Aug 2023</td>
-                        <td>Cash</td>
-                        <td>V-1410</td>
-                        <td>16000</td>
-                        <td>8000</td>
-                        <td>8000</td>
-                        <td><button className={displayDataCSS.tabBtn}>Update</button></td>
-                        <td><button className={displayDataCSS.tabBtn}>Delete</button></td>
-                    </tr>
-                    <tr id='data'>
-                        <td>12 Aug 2023</td>
-                        <td>Cash</td>
-                        <td>V-1410</td>
-                        <td>0</td>
-                        <td>2000</td>
-                        <td>6000</td>
-                        <td><button className={displayDataCSS.tabBtn}>Update</button></td>
-                        <td><button className={displayDataCSS.tabBtn}>Delete</button></td>
-                    </tr>
-                    <tr id='data'>
-                        <td>12 Aug 2023</td>
-                        <td>Cash</td>
-                        <td>V-1411</td>
-                        <td>2000</td>
-                        <td>4000</td>
-                        <td>4000</td>
-                        <td><button className={displayDataCSS.tabBtn}>Update</button></td>
-                        <td><button className={displayDataCSS.tabBtn}>Delete</button></td>
-                    </tr>
-                    
+                    { entriesProp && entriesProp.map((entry) => {
+                        return <TableRowProp key={entry._id} entry={entry} />
+                    }) }
+
                 </tbody>
             </table>
         </div>
+    );
+}
+
+function TableRowProp({ entry }) {
+    return (
+        <tr id='data'>
+            <td>{entry.date}</td>
+            {/* <td>{entry.description}</td> */}
+            <td>{entry.debit}</td>
+            <td>{entry.credit}</td>
+            <td>{entry.balance}</td>
+            <td><button className={displayDataCSS.tabBtn}>Update</button></td>
+            <td><button className={displayDataCSS.tabBtn}>Delete</button></td>
+        </tr>
     );
 }
 
