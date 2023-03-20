@@ -1,20 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import displayDataCSS from "../styles/displaydata.module.css";
-import axios from "axios";
 
 function SalesData() {
 
   const [sales, setSales] = useState(...[]);
 
   const getSales = async () => {
-    const res = await axios.get('/sales/getSales');
-    console.log(res);
-    setSales(res.data.sales);
+    
+    const res = await fetch('/sales/getSales', {
+      method: 'GET',
+      dataType: 'json',
+      headers:{
+        'Accept': 'application/json',
+        'content-Type': 'application/json'
+      },
+      credentials: 'include'
+    })
+
+    const resData = await res.json(); 
+    console.log(resData);
+
+    setSales(resData.sales);
   }
 
   useEffect(() => {
     getSales();
-  }, [sales]);
+  }, []);
   
 
   return (
@@ -24,13 +35,13 @@ function SalesData() {
       </div>
 
       <div className={displayDataCSS.showData}>
-        <DataProp />
+        <DataProp salesProp={sales}/>
       </div>
     </div>
   )
 }
 
-function DataProp() {
+function DataProp({ salesProp }) {
   return (
     <div className={displayDataCSS.dataProp}>
       <table className={displayDataCSS.table}>
@@ -47,36 +58,18 @@ function DataProp() {
           </tr>
         </thead>
         <tbody>
-          <tr id='data'>
-            <td>Product Name</td>
-            <td>Product Type</td>
-            <td>1500</td>
-            <td>1600</td>
-            <td>50</td>
-            <td>Pradeep</td>
-            <td><button className={displayDataCSS.tabBtn}>Update</button></td>
-            <td><button className={displayDataCSS.tabBtn}>Delete</button></td>
-          </tr>
-          <tr id='data'>
-            <td>Product Name</td>
-            <td>Product Type</td>
-            <td>1500</td>
-            <td>1600</td>
-            <td>50</td>
-            <td>Pradeep</td>
-            <td><button className={displayDataCSS.tabBtn}>Update</button></td>
-            <td><button className={displayDataCSS.tabBtn}>Delete</button></td>
-          </tr>
-          <tr id='data'>
-            <td>Product Name</td>
-            <td>Product Type</td>
-            <td>1500</td>
-            <td>1600</td>
-            <td>50</td>
-            <td>Pradeep</td>
-            <td><button className={displayDataCSS.tabBtn}>Update</button></td>
-            <td><button className={displayDataCSS.tabBtn}>Delete</button></td>
-          </tr>
+          {salesProp && salesProp.map((sale) => {
+            return <tr id='data'>
+              <td>{sale.product_name}</td>
+              <td>{sale.type}</td>
+              <td>{sale.selling_price}</td>
+              <td>{sale.sold_at}</td>
+              <td>{sale.units_sold}</td>
+              <td>{sale.unit}</td>
+              <td><button className={displayDataCSS.tabBtn}>Update</button></td>
+              <td><button className={displayDataCSS.tabBtn}>Delete</button></td>
+            </tr>
+          })}
         </tbody>
       </table>
     </div>

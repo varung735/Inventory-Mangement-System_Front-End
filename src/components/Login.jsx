@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from "axios";
 import LoginCSS from "../styles/login.module.css";
 import { useNavigate } from 'react-router-dom';
 
@@ -17,30 +16,30 @@ function Login() {
       password: password
     }
 
-    // const res = await axios.post('/employees/login', data, { withCredentials: true });
-
     try {
       const res = await fetch('/employees/login', {
         method: 'POST',
+        dataType: 'json',
         headers: {
+          'Accept': 'application/json',
           'content-Type': 'application/json'
         },
         body: JSON.stringify(data),
-      }).then(response => {console.log(response)})
-        .catch(error => console.log(error));
-      console.log(res.body);
+      });
+      
+      const resData = await res.json();
+      // console.log(resData);
+
+      if(resData.success && resData){
+        navigate('/dashboard');
+      }
+      else{
+        alert("Invalid Email or Password");
+      }
+
     } catch (error) {
       console.log(error);
     }
-
-    // console.log(res.headers);
-
-    // if(res.data.success){
-    //   navigate('/dashboard');
-    // }
-    // else{
-    //   alert("Invalid Email or Password");
-    // }
   }
 
   //to prevent default action of form

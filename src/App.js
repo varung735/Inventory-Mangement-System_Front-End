@@ -1,12 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import axios from "axios";
 import './App.css';
 import Dashboard from './components/Dashboard';
 import Login from './components/Login';
 
 function App() {
-
-  axios.defaults.baseURL = "http://localhost:4000";
 
   return (
     <BrowserRouter>
