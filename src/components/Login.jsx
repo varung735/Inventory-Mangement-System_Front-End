@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import LoginCSS from "../styles/login.module.css";
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 function Login() {
 
@@ -30,13 +31,15 @@ function Login() {
       const resData = await res.json();
       // console.log(resData);
 
+      Cookies.set('user-role', resData.employee._id, { expires: 1 });
+
       if(resData.success && resData){
         navigate('/dashboard');
       }
       else{
         alert("Invalid Email or Password");
       }
-
+      
     } catch (error) {
       console.log(error);
     }

@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
-import dashboardCSS from '../styles/dashboard.module.css'
+import React, { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
+import dashboardCSS from '../styles/dashboard.module.css';
 import PurchaseData from './PurchaseData';
 import SalesData from './SalesData';
 import SideNav from './SideNav';
@@ -11,12 +12,35 @@ import SalaryData from "./SalaryData";
 import LedgerData from "./LedgerData";
 
 function Dashboard() {
-  const [sideNavOpen, setSideNavOpen] = useState(true);
+  const [sideNavOpen, setSideNavOpen] = useState(false);
   const [sidenavLink, setSideNavLink] = useState("sales");
 
   const getSideNavLink = (link) => {
     setSideNavLink(link);
   }
+
+  const loggedUserInfo = async () => {
+    const userId = Cookies.get('user-role');
+    console.log(userId);
+
+    const res = await fetch(`/employees/getEmployee/${userId}`, {
+      method: 'GET',
+      dataType: 'json',
+      headers: {
+        'Accept': 'application/json',
+        'content-Type': 'application/json'
+      }
+    });
+
+    const resData = await res.json();
+    // console.log(resData.employee);
+
+    Cookies.set('user-role', resData.employee.role);
+  }
+
+  useEffect(() => {
+    loggedUserInfo();
+  }, []);
 
   return (
     <div className={dashboardCSS.container}>
