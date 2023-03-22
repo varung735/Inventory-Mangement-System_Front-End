@@ -1,8 +1,11 @@
-import React from 'react'
+import React from 'react';
+import displayDataCSS from "../styles/displaydata.module.css";
 
 function SalaryData() {
   return (
-    <div>SalaryData</div>
+    <div className={displayDataCSS.container}>
+      
+    </div>
   )
 }
 
