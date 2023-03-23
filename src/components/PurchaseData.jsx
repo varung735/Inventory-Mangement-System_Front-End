@@ -23,6 +23,24 @@ function PurchaseData() {
     setPurchase(resData.purchases);
   }
 
+  const deletePurchases = async (id) => {
+
+    const res = await fetch(`/purchases/deletePurchases/${id}`, {
+      method: 'DELETE',
+      dataType: 'json',
+      headers: {
+        'Accept': 'application/json',
+        'content-Type': 'application/json'
+      },
+      credentials: 'include'
+    });
+
+    const resData = await res.json();
+    console.log(resData);
+
+    setPurchase(purchase.filter(purchase => purchase._id !== id));
+  }
+
   useEffect(() => {
     getPurchases();
   }, []);
@@ -34,13 +52,13 @@ function PurchaseData() {
       </div>
 
       <div className={displayDataCSS.showData}>
-        <DataProp purchasesProp={ purchase }/>
+        <DataProp purchasesProp={ purchase } deletePurchase={deletePurchases}/>
       </div>
     </div>
   )
 }
 
-function DataProp({ purchasesProp }) {
+function DataProp({ purchasesProp, deletePurchase }) {
   return (
     <div className={displayDataCSS.dataProp}>
       <table className={displayDataCSS.table}>
@@ -58,16 +76,16 @@ function DataProp({ purchasesProp }) {
           </tr>
         </thead>
         <tbody>
-          { purchasesProp && purchasesProp.map((purchase) => {
-            return <TableRowProp key={purchase._id} purchase={purchase}/>
-          }) }
+          {purchasesProp && purchasesProp.map((purchase) => {
+            return <TableRowProp key={purchase._id} purchase={purchase} deletePurchase={deletePurchase}/>
+          })}
         </tbody>
       </table>
     </div>
   );
 }
 
-function TableRowProp({ purchase }) {
+function TableRowProp({ purchase, deletePurchase }) {
   return (
     <tr id='data'>
       <td>{purchase.purchase_name}</td>
@@ -78,7 +96,7 @@ function TableRowProp({ purchase }) {
       <td>{purchase.unit}</td>
       <td>{purchase.added_by}</td>
       <td><button className={displayDataCSS.tabBtn}>Update</button></td>
-      <td><button className={displayDataCSS.tabBtn}>Delete</button></td>
+      <td><button className={displayDataCSS.tabBtn} onClick={() => {deletePurchase(purchase._id)}}>Delete</button></td>
     </tr>
   );
 }

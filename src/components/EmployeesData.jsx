@@ -20,6 +20,24 @@ function EmployeesData() {
     setEmployees(resData.employees);
   }
 
+  const deleteEmployee = async (id) => {
+
+    const res = await fetch(`/employees/deleteEmployee/${id}`, {
+      method: 'DELETE',
+      dataType: 'json',
+      headers: {
+        'Accept': 'application/json',
+        'content-Type': 'application/json'
+      },
+      credentials: 'include'
+    });
+
+    const resData = await res.json();
+    // console.log(resData);
+
+    setEmployees(employees.filter(employee => employee._id !== id));
+  }
+
   useEffect(() => {
     getEmployees();
   }, [])
@@ -28,13 +46,13 @@ function EmployeesData() {
   return (
     <div className={employeeCSS.container}>
       {employees && employees.map((employee) => {
-        return <EmployeeProp key={employee._id} employeesProp={employee}/>
+        return <EmployeeProp key={employee._id} employeesProp={employee} deleteEmployee={deleteEmployee}/>
       })}
     </div>
   )
 }
 
-function EmployeeProp({ employeesProp }) {
+function EmployeeProp({ employeesProp, deleteEmployee }) {
 
   return(
     <div className={employeeCSS.empDiv}>
@@ -58,7 +76,7 @@ function EmployeeProp({ employeesProp }) {
           <p className={employeeCSS.empDetail}>Status: {employeesProp.emp_status}</p>
           <div className={employeeCSS.buttons}>
             <button className={employeeCSS.button}>Update</button>
-            <button className={employeeCSS.button}>Delete</button>
+            <button className={employeeCSS.button} onClick={() => {deleteEmployee(employeesProp._id)}}>Delete</button>
           </div>
         </div>
 

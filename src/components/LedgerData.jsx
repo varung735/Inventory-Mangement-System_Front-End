@@ -56,7 +56,7 @@ function DataAccordion({ ledgersProp }) {
             {isOpen && <div className={displayDataCSS.accordionData}>
                 <div className={displayDataCSS.accBtns}>
                     <button className={displayDataCSS.accBtn}>Add Entry</button>
-                    <button className={displayDataCSS.accBtn}>Export Data</button>
+                    <button className={displayDataCSS.accBtn}>Delete Account</button>
                 </div>
                 <DataProp entriesProp={ ledgersProp.entries } />
             </div>}

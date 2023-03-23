@@ -23,6 +23,24 @@ function StockData() {
     setStock(resData.stocks);
   }
 
+  const deleteStock = async (id) => {
+
+    const res = await fetch(`/stocks/deleteStocks/${id}`, {
+      method: 'DELETE',
+      dataType: 'json',
+      headers: {
+        'Accept': 'application/json',
+        'content-Type': 'application/json'
+      },
+      credentials: 'include'
+    });
+
+    const resData = await res.json();
+    // console.log(resData);
+
+    setStock(stock.filter(stock => stock._id !== id));
+  }
+
   useEffect(() => {
     getStocks();
   }, []);
@@ -34,13 +52,13 @@ function StockData() {
       </div>
 
       <div className={displayDataCSS.showData}>
-        <DataProp stocksProp={stock} />
+        <DataProp stocksProp={stock}  deleteStock={deleteStock}/>
       </div>
     </div>
   )
 }
 
-function DataProp({ stocksProp }) {
+function DataProp({ stocksProp, deleteStock }) {
   return (
     <div className={displayDataCSS.dataProp}>
       <table className={displayDataCSS.table}>
@@ -58,7 +76,7 @@ function DataProp({ stocksProp }) {
         </thead>
         <tbody>
           { stocksProp && stocksProp.map((stock) => {
-            return <TableRowProp key={stock._id} stock={stock}/>
+            return <TableRowProp key={stock._id} stock={stock} deleteStock={deleteStock}/>
           }) }
         </tbody>
       </table>
@@ -66,7 +84,7 @@ function DataProp({ stocksProp }) {
   );
 }
 
-function TableRowProp({ stock }) {
+function TableRowProp({ stock, deleteStock }) {
   return (
     <tr id='data'>
       <td>{stock.stock_name}</td>
@@ -76,7 +94,7 @@ function TableRowProp({ stock }) {
       <td>{stock.unit}</td>
       <td>{stock.added_by}</td>
       <td><button className={displayDataCSS.tabBtn}>Update</button></td>
-      <td><button className={displayDataCSS.tabBtn}>Delete</button></td>
+      <td><button className={displayDataCSS.tabBtn} onClick={() => {deleteStock(stock._id)}}>Delete</button></td>
     </tr>
   );
 }

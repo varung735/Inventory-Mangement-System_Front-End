@@ -23,6 +23,24 @@ function InventoryData() {
     setInventory(resData.inventories);
   }
 
+  const deleteInventory = async (id) => {
+
+    const res = await fetch(`/inventories/deleteInventory/${id}`, {
+      method: 'DELETE',
+      dataType: 'json',
+      headers: {
+        'Accept': 'application/json',
+        'content-Type': 'application/json'
+      },
+      credentials: 'include'
+    });
+
+    const resData = await res.json();
+    // console.log(resData);
+
+    setInventory(inventory.filter(inventory => inventory._id !== id));
+  }
+
   useEffect(() => {
     getInventories();
   }, []);
@@ -34,13 +52,13 @@ function InventoryData() {
       </div>
 
       <div className={displayDataCSS.showData}>
-        <DataProp inventoryProp={inventory}/>
+        <DataProp inventoryProp={inventory} deleteInventory={deleteInventory}/>
       </div>
     </div>
   )
 }
 
-function DataProp({ inventoryProp }) {
+function DataProp({ inventoryProp, deleteInventory }) {
   return (
     <div className={displayDataCSS.dataProp}>
       <table className={displayDataCSS.table}>
@@ -57,7 +75,7 @@ function DataProp({ inventoryProp }) {
         </thead>
         <tbody>
           { inventoryProp && inventoryProp.map((inventory) => {
-            return <TableRowProp key={inventory._id} inventory={inventory}/>
+            return <TableRowProp key={inventory._id} inventory={inventory} deleteInventory={deleteInventory}/>
           }) }
         </tbody>
       </table>
@@ -65,7 +83,7 @@ function DataProp({ inventoryProp }) {
   );
 }
 
-function TableRowProp({ inventory }) {
+function TableRowProp({ inventory, deleteInventory }) {
   return (
     <tr id='data'>
       <td>{inventory.item_name}</td>
@@ -74,7 +92,7 @@ function TableRowProp({ inventory }) {
       <td>{inventory.unit}</td>
       <td>{inventory.added_by}</td>
       <td><button className={displayDataCSS.tabBtn}>Update</button></td>
-      <td><button className={displayDataCSS.tabBtn}>Delete</button></td>
+      <td><button className={displayDataCSS.tabBtn} onClick={() => {deleteInventory(inventory._id)}}>Delete</button></td>
     </tr>
   );
 }

@@ -23,6 +23,24 @@ function ExpenseData() {
     setExpense(resData.expenses);
   }
 
+  const deleteExpenses = async (id) => {
+
+    const res = await fetch(`/expenses/deleteExpenses/${id}`, {
+      method: 'DELETE',
+      dataType: 'json',
+      headers: {
+        'Accept': 'application/json',
+        'content-Type': 'application/json'
+      },
+      credentials: 'include'
+    });
+
+    const resData = await res.json();
+    // console.log(resData);
+
+    setExpense(expense.filter(expense => expense._id !== id));
+  }
+
   useEffect(() => {
     getExpenses();
   }, []);
@@ -34,13 +52,13 @@ function ExpenseData() {
       </div>
 
       <div className={displayDataCSS.showData}>
-        <DataProp expenseProp={expense}/>
+        <DataProp expenseProp={expense} deleteExpense={deleteExpenses}/>
       </div>
     </div>
   )
 }
 
-function DataProp({ expenseProp }) {
+function DataProp({ expenseProp, deleteExpense }) {
   return (
     <div className={displayDataCSS.dataProp}>
       <table className={displayDataCSS.table}>
@@ -57,7 +75,7 @@ function DataProp({ expenseProp }) {
         </thead>
         <tbody>
           { expenseProp && expenseProp.map((expense) => {
-            return <TableRowProp key={expense._id} expense={expense}/>
+            return <TableRowProp key={expense._id} expense={expense} deleteExpense={deleteExpense}/>
           }) }
         </tbody>
       </table>
@@ -65,7 +83,7 @@ function DataProp({ expenseProp }) {
   );
 }
 
-function TableRowProp({ expense }) {
+function TableRowProp({ expense, deleteExpense }) {
   return (
     <tr id='data'>
       <td>{expense.expense_name}</td>
@@ -74,7 +92,7 @@ function TableRowProp({ expense }) {
       <td>{expense.amount}</td>
       <td>{expense.added_by}</td>
       <td><button className={displayDataCSS.tabBtn}>Update</button></td>
-      <td><button className={displayDataCSS.tabBtn}>Delete</button></td>
+      <td><button className={displayDataCSS.tabBtn} onClick={() => {deleteExpense(expense._id)}}>Delete</button></td>
     </tr>
   );
 }

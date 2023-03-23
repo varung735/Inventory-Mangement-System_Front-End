@@ -23,6 +23,23 @@ function SalesData() {
     setSales(resData.sales);
   }
 
+  const deleteSales = async (id) => {
+    const res = await fetch(`/sales/deleteSales/${id}`, {
+      method: 'DELETE',
+      dataType: 'json',
+      headers: {
+        'Accept': 'application/json',
+        'content-Type': 'application/json'
+      },
+      credentials: 'include'
+    });
+
+    const resData = await res.json();
+    // console.log(resData);
+
+    setSales(sales.filter(sale => sale._id !== id));
+  }
+
   useEffect(() => {
     getSales();
   }, []);
@@ -35,13 +52,13 @@ function SalesData() {
       </div>
 
       <div className={displayDataCSS.showData}>
-        <DataProp salesProp={sales} />
+        <DataProp salesProp={sales} deleteSale={deleteSales}/>
       </div>
     </div>
   )
 }
 
-function DataProp({ salesProp }) {
+function DataProp({ salesProp, deleteSale }) {
   return (
     <div className={displayDataCSS.dataProp}>
       <table className={displayDataCSS.table}>
@@ -60,7 +77,7 @@ function DataProp({ salesProp }) {
         </thead>
         <tbody>
           {salesProp && salesProp.map((sale) => {
-            return <TableRowProp key={sale._id} saleProp={sale}/>
+            return <TableRowProp key={sale._id} saleProp={sale} deleteSale={deleteSale}/>
           })}
         </tbody>
       </table>
@@ -68,7 +85,8 @@ function DataProp({ salesProp }) {
   );
 }
 
-function TableRowProp({ saleProp }) {
+function TableRowProp({ saleProp, deleteSale }) {
+
   return (
     <tr id='data'>
       <td>{saleProp.product_name}</td>
@@ -78,8 +96,8 @@ function TableRowProp({ saleProp }) {
       <td>{saleProp.units_sold}</td>
       <td>{saleProp.unit}</td>
       <td>{saleProp.added_by}</td>
-      <td><button className={displayDataCSS.tabBtn}>Update</button></td>
-      <td><button className={displayDataCSS.tabBtn}>Delete</button></td>
+      <td><button className={displayDataCSS.tabBtn} onClick={() => {console.log(saleProp)}}>Update</button></td>
+      <td><button className={displayDataCSS.tabBtn} onClick={() => {deleteSale(saleProp._id)}}>Delete</button></td>
     </tr>
   );
 }
