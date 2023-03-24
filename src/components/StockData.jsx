@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import displayDataCSS from "../styles/displaydata.module.css";
+import Modal from './Modal';
 
 function StockData() {
 
   const [stock, setStock] = useState(...[]);
+  const [modal, setModal] = useState(false);
+
+  const closeModal = () => {
+    setModal(!modal);
+  }
 
   const getStocks = async () => {
 
@@ -25,7 +31,7 @@ function StockData() {
 
   const deleteStock = async (id) => {
 
-    const res = await fetch(`/stocks/deleteStocks/${id}`, {
+    await fetch(`/stocks/deleteStocks/${id}`, {
       method: 'DELETE',
       dataType: 'json',
       headers: {
@@ -35,7 +41,7 @@ function StockData() {
       credentials: 'include'
     });
 
-    const resData = await res.json();
+    // const resData = await res.json();
     // console.log(resData);
 
     setStock(stock.filter(stock => stock._id !== id));
@@ -48,11 +54,12 @@ function StockData() {
   return (
     <div className={displayDataCSS.container}>
       <div className={displayDataCSS.buttons}>
-        <button className={displayDataCSS.button}>ADD STOCK</button>
+        <button className={displayDataCSS.button} onClick={() => setModal(!modal)}>ADD STOCK</button>
       </div>
 
       <div className={displayDataCSS.showData}>
         <DataProp stocksProp={stock}  deleteStock={deleteStock}/>
+        {modal && <Modal prop={'Stock'} closeModal={closeModal} />}
       </div>
     </div>
   )
@@ -69,6 +76,7 @@ function DataProp({ stocksProp, deleteStock }) {
             <th>Cost (in Rs.)</th>
             <th>Available</th>
             <th>Unit</th>
+            <th>Added On</th>
             <th>Added By</th>
             <th>Update</th>
             <th>Delete</th>
@@ -85,6 +93,12 @@ function DataProp({ stocksProp, deleteStock }) {
 }
 
 function TableRowProp({ stock, deleteStock }) {
+
+  const formatDate = (date) => {
+    const formatedDate = new Date(date).toLocaleDateString();
+    return formatedDate;
+  }
+
   return (
     <tr id='data'>
       <td>{stock.stock_name}</td>
@@ -92,6 +106,7 @@ function TableRowProp({ stock, deleteStock }) {
       <td>{stock.cost}</td>
       <td>{stock.available}</td>
       <td>{stock.unit}</td>
+      <td>{formatDate(stock.date)}</td>
       <td>{stock.added_by}</td>
       <td><button className={displayDataCSS.tabBtn}>Update</button></td>
       <td><button className={displayDataCSS.tabBtn} onClick={() => {deleteStock(stock._id)}}>Delete</button></td>

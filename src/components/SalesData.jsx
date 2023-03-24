@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import displayDataCSS from "../styles/displaydata.module.css";
+import Modal from './Modal';
 
 function SalesData() {
 
   const [sales, setSales] = useState(...[]);
+  const [modal, setModal] = useState(false);
+
+  const closeModal = () => {
+    setModal(!modal);
+  }
 
   const getSales = async () => {
 
@@ -24,7 +30,7 @@ function SalesData() {
   }
 
   const deleteSales = async (id) => {
-    const res = await fetch(`/sales/deleteSales/${id}`, {
+    await fetch(`/sales/deleteSales/${id}`, {
       method: 'DELETE',
       dataType: 'json',
       headers: {
@@ -34,7 +40,7 @@ function SalesData() {
       credentials: 'include'
     });
 
-    const resData = await res.json();
+    // const resData = await res.json();
     // console.log(resData);
 
     setSales(sales.filter(sale => sale._id !== id));
@@ -48,11 +54,12 @@ function SalesData() {
   return (
     <div className={displayDataCSS.container}>
       <div className={displayDataCSS.buttons}>
-        <button className={displayDataCSS.button}>ADD SALES</button>
+        <button className={displayDataCSS.button} onClick={() => setModal(!modal)}>ADD SALES</button>
       </div>
 
       <div className={displayDataCSS.showData}>
-        <DataProp salesProp={sales} deleteSale={deleteSales}/>
+        <DataProp salesProp={sales} deleteSale={deleteSales} />
+        {modal && <Modal prop={'Sale'} closeModal={closeModal}/>}
       </div>
     </div>
   )
@@ -70,6 +77,7 @@ function DataProp({ salesProp, deleteSale }) {
             <th>Sold At</th>
             <th>Units Sold</th>
             <th>Unit</th>
+            <th>Added On</th>
             <th>Added By</th>
             <th>Update</th>
             <th>Delete</th>
@@ -77,7 +85,7 @@ function DataProp({ salesProp, deleteSale }) {
         </thead>
         <tbody>
           {salesProp && salesProp.map((sale) => {
-            return <TableRowProp key={sale._id} saleProp={sale} deleteSale={deleteSale}/>
+            return <TableRowProp key={sale._id} saleProp={sale} deleteSale={deleteSale} />
           })}
         </tbody>
       </table>
@@ -87,6 +95,11 @@ function DataProp({ salesProp, deleteSale }) {
 
 function TableRowProp({ saleProp, deleteSale }) {
 
+  const formatDate = (date) => {
+    const formatedDate = new Date(date).toLocaleDateString();
+    return formatedDate;
+  }
+
   return (
     <tr id='data'>
       <td>{saleProp.product_name}</td>
@@ -95,9 +108,10 @@ function TableRowProp({ saleProp, deleteSale }) {
       <td>{saleProp.sold_at}</td>
       <td>{saleProp.units_sold}</td>
       <td>{saleProp.unit}</td>
+      <td>{formatDate(saleProp.date)}</td>
       <td>{saleProp.added_by}</td>
-      <td><button className={displayDataCSS.tabBtn} onClick={() => {console.log(saleProp)}}>Update</button></td>
-      <td><button className={displayDataCSS.tabBtn} onClick={() => {deleteSale(saleProp._id)}}>Delete</button></td>
+      <td><button className={displayDataCSS.tabBtn} onClick={() => { console.log(saleProp) }}>Update</button></td>
+      <td><button className={displayDataCSS.tabBtn} onClick={() => { deleteSale(saleProp._id) }}>Delete</button></td>
     </tr>
   );
 }

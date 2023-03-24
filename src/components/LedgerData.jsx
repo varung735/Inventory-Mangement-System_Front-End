@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import displayDataCSS from "../styles/displaydata.module.css";
+import Modal from './Modal';
 
 function LedgerData() {
 
     const [ledger, setLedger] = useState(...[]);
+    const [modal, setModal] = useState(false);
+
+    const closeModal = () => {
+        setModal(!modal);
+    }
 
     const getLedgers = async () => {
 
@@ -30,13 +36,14 @@ function LedgerData() {
     return (
         <div className={displayDataCSS.container}>
             <div className={displayDataCSS.buttons}>
-                <button className={displayDataCSS.button}>ADD ACCOUNT</button>
+                <button className={displayDataCSS.button} onClick={() => setModal(!modal)}>ADD ACCOUNT</button>
             </div>
 
             <div className={displayDataCSS.showData}>
                 {ledger && ledger.map((ledger) => {
                     return <DataAccordion key={ledger._id} ledgersProp={ledger} />
                 })}
+                {modal && <Modal prop={'Ledger'} closeModal={closeModal} />}
             </div>
         </div>
     )
@@ -58,7 +65,7 @@ function DataAccordion({ ledgersProp }) {
                     <button className={displayDataCSS.accBtn}>Add Entry</button>
                     <button className={displayDataCSS.accBtn}>Delete Account</button>
                 </div>
-                <DataProp entriesProp={ ledgersProp.entries } />
+                <DataProp entriesProp={ledgersProp.entries} />
             </div>}
         </div>
     );
@@ -81,9 +88,9 @@ function DataProp({ entriesProp }) {
                     </tr>
                 </thead>
                 <tbody>
-                    { entriesProp && entriesProp.map((entry) => {
+                    {entriesProp && entriesProp.map((entry) => {
                         return <TableRowProp key={entry._id} entry={entry} />
-                    }) }
+                    })}
 
                 </tbody>
             </table>
@@ -92,9 +99,15 @@ function DataProp({ entriesProp }) {
 }
 
 function TableRowProp({ entry }) {
+
+    const formatDate = (date) => {
+        const formatedDate = new Date(date).toLocaleDateString();
+        return formatedDate;
+    }
+
     return (
         <tr id='data'>
-            <td>{entry.date}</td>
+            <td>{formatDate(entry.date)}</td>
             {/* <td>{entry.description}</td> */}
             <td>{entry.debit}</td>
             <td>{entry.credit}</td>

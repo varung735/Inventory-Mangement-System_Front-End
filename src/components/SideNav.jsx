@@ -30,7 +30,7 @@ function SideNav({ link }) {
          });
 
          const resData = await res.json();
-         console.log(resData);
+         // console.log(resData);
 
          if (resData.success) {
             Cookies.remove('user-role');

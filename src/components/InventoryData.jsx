@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import displayDataCSS from "../styles/displaydata.module.css";
+import Modal from './Modal';
 
 function InventoryData() {
 
   const [inventory, setInventory] = useState(...[]);
+  const [modal, setModal] = useState(false);
+
+  const closeModal = () => {
+    setModal(!modal);
+  }
 
   const getInventories = async () => {
 
@@ -25,7 +31,7 @@ function InventoryData() {
 
   const deleteInventory = async (id) => {
 
-    const res = await fetch(`/inventories/deleteInventory/${id}`, {
+    await fetch(`/inventories/deleteInventory/${id}`, {
       method: 'DELETE',
       dataType: 'json',
       headers: {
@@ -35,7 +41,7 @@ function InventoryData() {
       credentials: 'include'
     });
 
-    const resData = await res.json();
+    // const resData = await res.json();
     // console.log(resData);
 
     setInventory(inventory.filter(inventory => inventory._id !== id));
@@ -48,11 +54,12 @@ function InventoryData() {
   return (
     <div className={displayDataCSS.container}>
       <div className={displayDataCSS.buttons}>
-        <button className={displayDataCSS.button}>ADD INVENTORY</button>
+        <button className={displayDataCSS.button} onClick={() => setModal(!modal)}>ADD INVENTORY</button>
       </div>
 
       <div className={displayDataCSS.showData}>
         <DataProp inventoryProp={inventory} deleteInventory={deleteInventory}/>
+        {modal && <Modal prop={'Inventory'} closeModal={closeModal} />}
       </div>
     </div>
   )

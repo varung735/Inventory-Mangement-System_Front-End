@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import displayDataCSS from "../styles/displaydata.module.css";
+import Modal from './Modal';
 
 function ExpenseData() {
 
   const [expense, setExpense] = useState(...[]);
+  const [modal, setModal] = useState(false);
+
+  const closeModal = () => {
+    setModal(!modal);
+  }
 
   const getExpenses = async () => {
 
@@ -25,7 +31,7 @@ function ExpenseData() {
 
   const deleteExpenses = async (id) => {
 
-    const res = await fetch(`/expenses/deleteExpenses/${id}`, {
+    await fetch(`/expenses/deleteExpenses/${id}`, {
       method: 'DELETE',
       dataType: 'json',
       headers: {
@@ -33,9 +39,10 @@ function ExpenseData() {
         'content-Type': 'application/json'
       },
       credentials: 'include'
-    });
+    }); //for debugging, you can put this code block to a variable like "const res = await fetch"
+    // the commented code in line below will log the response below in the console
 
-    const resData = await res.json();
+    // const resData = await res.json();
     // console.log(resData);
 
     setExpense(expense.filter(expense => expense._id !== id));
@@ -48,11 +55,12 @@ function ExpenseData() {
   return (
     <div className={displayDataCSS.container}>
       <div className={displayDataCSS.buttons}>
-        <button className={displayDataCSS.button}>ADD EXPENSE</button>
+        <button className={displayDataCSS.button} onClick={() => setModal(!modal)}>ADD EXPENSE</button>
       </div>
 
       <div className={displayDataCSS.showData}>
         <DataProp expenseProp={expense} deleteExpense={deleteExpenses}/>
+        {modal && <Modal prop={'Expense'} closeModal={closeModal} />}
       </div>
     </div>
   )

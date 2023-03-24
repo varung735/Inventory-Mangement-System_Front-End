@@ -15,7 +15,7 @@ function SalaryData() {
     });
 
     const resData = await res.json();
-    console.log(resData.employees);
+    // console.log(resData.employees);
 
     setSalary(resData.employees);
   }
@@ -56,7 +56,7 @@ function DataAccordion({ employeeProp }) {
 }
 
 function DataProp({ salaryProp }) {
-  console.log(salaryProp);
+
   return (
       <div className={displayDataCSS.dataProp}>
           <table className={displayDataCSS.table}>
@@ -80,10 +80,16 @@ function DataProp({ salaryProp }) {
 }
 
 function TableRowProp({ salary }) {
+
+  const formatDate = (date) => {
+    const formatedDate = new Date(date).toLocaleDateString();
+    return formatedDate;
+  }
+
   return (
       <tr id='data'>
           <td>{salary.amount}</td>
-          <td>{salary.paid_on}</td>
+          <td>{formatDate(salary.paid_on)}</td>
           <td><button className={displayDataCSS.tabBtn}>Update</button></td>
           <td><button className={displayDataCSS.tabBtn}>Delete</button></td>
       </tr>

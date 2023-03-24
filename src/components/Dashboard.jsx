@@ -21,7 +21,7 @@ function Dashboard() {
 
   const loggedUserInfo = async () => {
     const userId = Cookies.get('user-role');
-    console.log(userId);
+    // console.log(userId);
 
     const res = await fetch(`/employees/getEmployee/${userId}`, {
       method: 'GET',
