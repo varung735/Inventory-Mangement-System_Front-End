@@ -59,13 +59,14 @@ function SalesData() {
 
       <div className={displayDataCSS.showData}>
         <DataProp salesProp={sales} deleteSale={deleteSales} />
-        {modal && <Modal prop={'Sale'} closeModal={closeModal}/>}
+        {modal && <Modal prop={'Sale'} closeModal={closeModal} propObject={sales} setPropObject={setSales}/>}
       </div>
     </div>
   )
 }
 
 function DataProp({ salesProp, deleteSale }) {
+  console.log(salesProp);
   return (
     <div className={displayDataCSS.dataProp}>
       <table className={displayDataCSS.table}>
