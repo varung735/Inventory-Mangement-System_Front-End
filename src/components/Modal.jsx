@@ -9,9 +9,7 @@ import EmployeeForm from './forms/EmployeeForm';
 import SalaryForm from './forms/SalaryForm';
 import LedgerForm from './forms/LedgerForm';
 
-function Modal({ prop, closeModal, propObject, setPropObject }) {
-
-    console.log(propObject);
+function Modal({ prop, closeModal, propObject, setPropObject, operation, updateItem }) {
 
     return (
         <div className={modalCSS.container}>
@@ -23,7 +21,7 @@ function Modal({ prop, closeModal, propObject, setPropObject }) {
                 </div>
 
                 <div className={modalCSS.modalContent}>
-                    {prop === "Sale" && <SalesForm sales={propObject} setSales={setPropObject}/>}
+                    {prop === "Sale" && <SalesForm sales={propObject} setSales={setPropObject} operation={operation} updateItem={updateItem} />}
                     {prop === "Purchase" && <PurchasesForm />}
                     {prop === "Expense" && <ExpensesForm />}
                     {prop === "Inventory" && <InventoryForm />}

@@ -6,6 +6,8 @@ function SalesData() {
 
   const [sales, setSales] = useState(...[]);
   const [modal, setModal] = useState(false);
+  const [operation, setOperation] = useState(""); 
+  const [updateItem, setUpdateItem] = useState(...[]); //sales item which is to be updated in DB
 
   const closeModal = () => {
     setModal(!modal);
@@ -54,19 +56,19 @@ function SalesData() {
   return (
     <div className={displayDataCSS.container}>
       <div className={displayDataCSS.buttons}>
-        <button className={displayDataCSS.button} onClick={() => setModal(!modal)}>ADD SALES</button>
+        <button className={displayDataCSS.button} onClick={() => {setModal(!modal); setOperation("addSales"); setUpdateItem({})}}>ADD SALES</button>
       </div>
 
       <div className={displayDataCSS.showData}>
-        <DataProp salesProp={sales} deleteSale={deleteSales} />
-        {modal && <Modal prop={'Sale'} closeModal={closeModal} propObject={sales} setPropObject={setSales}/>}
+        <DataProp salesProp={sales} deleteSale={deleteSales} modal={modal} setModal={setModal} setOperation={setOperation} setUpdateItem={setUpdateItem}/>
+        {modal && <Modal prop={'Sale'} closeModal={closeModal} propObject={sales} setPropObject={setSales} operation={operation} updateItem={updateItem}/>}
       </div>
     </div>
   )
 }
 
-function DataProp({ salesProp, deleteSale }) {
-  console.log(salesProp);
+function DataProp({ salesProp, deleteSale, modal, setModal, setOperation, setUpdateItem }) {
+  // console.log(salesProp);
   return (
     <div className={displayDataCSS.dataProp}>
       <table className={displayDataCSS.table}>
@@ -86,7 +88,7 @@ function DataProp({ salesProp, deleteSale }) {
         </thead>
         <tbody>
           {salesProp && salesProp.map((sale) => {
-            return <TableRowProp key={sale._id} saleProp={sale} deleteSale={deleteSale} />
+            return <TableRowProp key={sale._id} saleProp={sale} deleteSale={deleteSale} modal={modal} setModal={setModal} setOperation={setOperation} setUpdateItem={setUpdateItem}/>
           })}
         </tbody>
       </table>
@@ -94,10 +96,9 @@ function DataProp({ salesProp, deleteSale }) {
   );
 }
 
-function TableRowProp({ saleProp, deleteSale }) {
-
+function TableRowProp({ saleProp, deleteSale, modal, setModal ,setOperation, setUpdateItem }) {
   const formatDate = (date) => {
-    const formatedDate = new Date(date).toLocaleDateString();
+    const formatedDate = new Date(date).toISOString().split('T')[0];
     return formatedDate;
   }
 
@@ -111,7 +112,7 @@ function TableRowProp({ saleProp, deleteSale }) {
       <td>{saleProp.unit}</td>
       <td>{formatDate(saleProp.date)}</td>
       <td>{saleProp.added_by}</td>
-      <td><button className={displayDataCSS.tabBtn} onClick={() => { console.log(saleProp) }}>Update</button></td>
+      <td><button className={displayDataCSS.tabBtn} onClick={() => { setModal(!modal); setOperation("updateSales"); setUpdateItem(saleProp) }}>Update</button></td>
       <td><button className={displayDataCSS.tabBtn} onClick={() => { deleteSale(saleProp._id) }}>Delete</button></td>
     </tr>
   );
