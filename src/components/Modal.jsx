@@ -22,11 +22,11 @@ function Modal({ prop, closeModal, propObject, setPropObject, operation, updateI
 
                 <div className={modalCSS.modalContent}>
                     {prop === "Sale" && <SalesForm sales={propObject} setSales={setPropObject} operation={operation} updateItem={updateItem} />}
-                    {prop === "Purchase" && <PurchasesForm />}
-                    {prop === "Expense" && <ExpensesForm />}
-                    {prop === "Inventory" && <InventoryForm />}
-                    {prop === "Stock" && <StocksForm />}
-                    {prop === "Employee" && <EmployeeForm />}
+                    {prop === "Purchase" && <PurchasesForm purchase={propObject} setPurchase={setPropObject} operation={operation} updateItem={updateItem} />}
+                    {prop === "Expense" && <ExpensesForm expense={propObject} setExpense={setPropObject} operation={operation} updateItem={updateItem} />}
+                    {prop === "Inventory" && <InventoryForm inventory={propObject} setInventory={setPropObject} operation={operation} updateItem={updateItem} />}
+                    {prop === "Stock" && <StocksForm stock={propObject} setStock={setPropObject} operation={operation} updateItem={updateItem} />}
+                    {prop === "Employee" && <EmployeeForm employee={propObject} setEmployee={setPropObject} operation={operation} updateItem={updateItem} />}
                     {prop === "Salary" && <SalaryForm />}
                     {prop === "Ledger" && <LedgerForm />}
                 </div>

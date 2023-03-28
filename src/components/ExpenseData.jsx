@@ -6,6 +6,8 @@ function ExpenseData() {
 
   const [expense, setExpense] = useState(...[]);
   const [modal, setModal] = useState(false);
+  const [operation, setOperation] = useState("");
+  const [updateItem, setUpdateItem] = useState(...[]);
 
   const closeModal = () => {
     setModal(!modal);
@@ -55,18 +57,18 @@ function ExpenseData() {
   return (
     <div className={displayDataCSS.container}>
       <div className={displayDataCSS.buttons}>
-        <button className={displayDataCSS.button} onClick={() => setModal(!modal)}>ADD EXPENSE</button>
+        <button className={displayDataCSS.button} onClick={() => {setModal(!modal); setOperation("addExpense"); setUpdateItem({})}}>ADD EXPENSE</button>
       </div>
 
       <div className={displayDataCSS.showData}>
-        <DataProp expenseProp={expense} deleteExpense={deleteExpenses}/>
-        {modal && <Modal prop={'Expense'} closeModal={closeModal} />}
+        <DataProp expenseProp={expense} deleteExpense={deleteExpenses} modal={modal} setModal={setModal} setUpdateItem={setUpdateItem} setOperation={setOperation}/>
+        {modal && <Modal prop={'Expense'} closeModal={closeModal} propObject={expense} setPropObject={setExpense} operation={operation} updateItem={updateItem}/>}
       </div>
     </div>
   )
 }
 
-function DataProp({ expenseProp, deleteExpense }) {
+function DataProp({ expenseProp, deleteExpense, modal, setModal, setUpdateItem, setOperation }) {
   return (
     <div className={displayDataCSS.dataProp}>
       <table className={displayDataCSS.table}>
@@ -83,7 +85,7 @@ function DataProp({ expenseProp, deleteExpense }) {
         </thead>
         <tbody>
           { expenseProp && expenseProp.map((expense) => {
-            return <TableRowProp key={expense._id} expense={expense} deleteExpense={deleteExpense}/>
+            return <TableRowProp key={expense._id} expense={expense} deleteExpense={deleteExpense} modal={modal} setModal={setModal} setUpdateItem={setUpdateItem} setOperation={setOperation}/>
           }) }
         </tbody>
       </table>
@@ -91,7 +93,7 @@ function DataProp({ expenseProp, deleteExpense }) {
   );
 }
 
-function TableRowProp({ expense, deleteExpense }) {
+function TableRowProp({ expense, deleteExpense, modal, setModal, setUpdateItem, setOperation }) {
   return (
     <tr id='data'>
       <td>{expense.expense_name}</td>
@@ -99,7 +101,7 @@ function TableRowProp({ expense, deleteExpense }) {
       <td>{expense.paid_to}</td>
       <td>{expense.amount}</td>
       <td>{expense.added_by}</td>
-      <td><button className={displayDataCSS.tabBtn}>Update</button></td>
+      <td><button className={displayDataCSS.tabBtn} onClick={() => {setModal(!modal); setUpdateItem(expense); setOperation("updateExpense")}}>Update</button></td>
       <td><button className={displayDataCSS.tabBtn} onClick={() => {deleteExpense(expense._id)}}>Delete</button></td>
     </tr>
   );

@@ -6,6 +6,8 @@ function PurchaseData() {
 
   const [purchase, setPurchase] = useState(...[]);
   const [modal, setModal] = useState(false);
+  const [operation, setOperation] = useState("");
+  const [updateItem, setUpdateItem] = useState(...[]);
 
   const closeModal = () => {
     setModal(!modal);
@@ -54,18 +56,18 @@ function PurchaseData() {
   return (
     <div className={displayDataCSS.container}>
       <div className={displayDataCSS.buttons}>
-        <button className={displayDataCSS.button} onClick={() => setModal(!modal)}>ADD PURCHASE</button>
+        <button className={displayDataCSS.button} onClick={() => {setModal(!modal); setOperation("addPurchase"); setUpdateItem({})}}>ADD PURCHASE</button>
       </div>
 
       <div className={displayDataCSS.showData}>
-        <DataProp purchasesProp={ purchase } deletePurchase={deletePurchases}/>
-        {modal && <Modal prop={'Purchase'} closeModal={closeModal}/>}
+        <DataProp purchasesProp={ purchase } deletePurchase={deletePurchases} modal={modal} setModal={setModal} setOperation={setOperation} setUpdateItem={setUpdateItem}/>
+        {modal && <Modal prop={'Purchase'} closeModal={closeModal} propObject={purchase} setPropObject={setPurchase} updateItem={updateItem} operation={operation}/>}
       </div>
     </div>
   )
 }
 
-function DataProp({ purchasesProp, deletePurchase }) {
+function DataProp({ purchasesProp, deletePurchase, modal, setModal, setOperation, setUpdateItem }) {
   return (
     <div className={displayDataCSS.dataProp}>
       <table className={displayDataCSS.table}>
@@ -85,7 +87,7 @@ function DataProp({ purchasesProp, deletePurchase }) {
         </thead>
         <tbody>
           {purchasesProp && purchasesProp.map((purchase) => {
-            return <TableRowProp key={purchase._id} purchase={purchase} deletePurchase={deletePurchase}/>
+            return <TableRowProp key={purchase._id} purchase={purchase} deletePurchase={deletePurchase} modal={modal} setModal={setModal} setOperation={setOperation} setUpdateItem={setUpdateItem}/>
           })}
         </tbody>
       </table>
@@ -93,7 +95,7 @@ function DataProp({ purchasesProp, deletePurchase }) {
   );
 }
 
-function TableRowProp({ purchase, deletePurchase }) {
+function TableRowProp({ purchase, deletePurchase, modal, setModal, setOperation, setUpdateItem }) {
 
   const formatDate = (date) => {
     const formatedDate = new Date(date).toLocaleDateString();
@@ -110,7 +112,7 @@ function TableRowProp({ purchase, deletePurchase }) {
       <td>{purchase.unit}</td>
       <td>{formatDate(purchase.date)}</td>
       <td>{purchase.added_by}</td>
-      <td><button className={displayDataCSS.tabBtn}>Update</button></td>
+      <td><button className={displayDataCSS.tabBtn} onClick={() => {setModal(!modal); setOperation("updatePurchase"); setUpdateItem(purchase)}}>Update</button></td>
       <td><button className={displayDataCSS.tabBtn} onClick={() => {deletePurchase(purchase._id)}}>Delete</button></td>
     </tr>
   );

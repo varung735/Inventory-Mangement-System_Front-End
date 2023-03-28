@@ -6,6 +6,8 @@ function InventoryData() {
 
   const [inventory, setInventory] = useState(...[]);
   const [modal, setModal] = useState(false);
+  const [operation, setOperation] = useState("");
+  const [updateItem, setUpdateItem] = useState(...[]);
 
   const closeModal = () => {
     setModal(!modal);
@@ -54,18 +56,18 @@ function InventoryData() {
   return (
     <div className={displayDataCSS.container}>
       <div className={displayDataCSS.buttons}>
-        <button className={displayDataCSS.button} onClick={() => setModal(!modal)}>ADD INVENTORY</button>
+        <button className={displayDataCSS.button} onClick={() => {setModal(!modal); setOperation("addInventory"); setUpdateItem({})}}>ADD INVENTORY</button>
       </div>
 
       <div className={displayDataCSS.showData}>
-        <DataProp inventoryProp={inventory} deleteInventory={deleteInventory}/>
-        {modal && <Modal prop={'Inventory'} closeModal={closeModal} />}
+        <DataProp inventoryProp={inventory} deleteInventory={deleteInventory} modal={modal} setModal={setModal} setOperation={setOperation} setUpdateItem={setUpdateItem}/>
+        {modal && <Modal prop={'Inventory'} closeModal={closeModal} propObject={inventory} setPropObject={setInventory} operation={operation} updateItem={updateItem}/>}
       </div>
     </div>
   )
 }
 
-function DataProp({ inventoryProp, deleteInventory }) {
+function DataProp({ inventoryProp, deleteInventory, modal, setModal, setOperation, setUpdateItem }) {
   return (
     <div className={displayDataCSS.dataProp}>
       <table className={displayDataCSS.table}>
@@ -82,7 +84,7 @@ function DataProp({ inventoryProp, deleteInventory }) {
         </thead>
         <tbody>
           { inventoryProp && inventoryProp.map((inventory) => {
-            return <TableRowProp key={inventory._id} inventory={inventory} deleteInventory={deleteInventory}/>
+            return <TableRowProp key={inventory._id} inventory={inventory} deleteInventory={deleteInventory} modal={modal} setModal={setModal} setOperation={setOperation} setUpdateItem={setUpdateItem}/>
           }) }
         </tbody>
       </table>
@@ -90,7 +92,7 @@ function DataProp({ inventoryProp, deleteInventory }) {
   );
 }
 
-function TableRowProp({ inventory, deleteInventory }) {
+function TableRowProp({ inventory, deleteInventory, modal, setModal, setOperation, setUpdateItem }) {
   return (
     <tr id='data'>
       <td>{inventory.item_name}</td>
@@ -98,7 +100,7 @@ function TableRowProp({ inventory, deleteInventory }) {
       <td>{inventory.quantity}</td>
       <td>{inventory.unit}</td>
       <td>{inventory.added_by}</td>
-      <td><button className={displayDataCSS.tabBtn}>Update</button></td>
+      <td><button className={displayDataCSS.tabBtn} onClick={() => {setModal(!modal); setOperation("updateInventory"); setUpdateItem(inventory)}}>Update</button></td>
       <td><button className={displayDataCSS.tabBtn} onClick={() => {deleteInventory(inventory._id)}}>Delete</button></td>
     </tr>
   );
