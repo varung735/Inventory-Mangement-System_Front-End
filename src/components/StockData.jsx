@@ -6,6 +6,8 @@ function StockData() {
 
   const [stock, setStock] = useState(...[]);
   const [modal, setModal] = useState(false);
+  const [operation, setOperation] = useState("");
+  const [updateItem, setUpdateItem] = useState(...[]);
 
   const closeModal = () => {
     setModal(!modal);
@@ -54,18 +56,18 @@ function StockData() {
   return (
     <div className={displayDataCSS.container}>
       <div className={displayDataCSS.buttons}>
-        <button className={displayDataCSS.button} onClick={() => setModal(!modal)}>ADD STOCK</button>
+        <button className={displayDataCSS.button} onClick={() => {setModal(!modal); setOperation("addStock"); setUpdateItem({})}}>ADD STOCK</button>
       </div>
 
       <div className={displayDataCSS.showData}>
-        <DataProp stocksProp={stock}  deleteStock={deleteStock}/>
-        {modal && <Modal prop={'Stock'} closeModal={closeModal} />}
+        <DataProp stocksProp={stock} deleteStock={deleteStock} modal={modal} setModal={setModal} setOperation={setOperation} setUpdateItem={setUpdateItem} />
+        {modal && <Modal prop={'Stock'} closeModal={closeModal} propObject={stock} setPropObject={setStock} operation={operation} updateItem={updateItem} />}
       </div>
     </div>
   )
 }
 
-function DataProp({ stocksProp, deleteStock }) {
+function DataProp({ stocksProp, deleteStock, modal, setModal, setOperation, setUpdateItem }) {
   return (
     <div className={displayDataCSS.dataProp}>
       <table className={displayDataCSS.table}>
@@ -84,7 +86,7 @@ function DataProp({ stocksProp, deleteStock }) {
         </thead>
         <tbody>
           { stocksProp && stocksProp.map((stock) => {
-            return <TableRowProp key={stock._id} stock={stock} deleteStock={deleteStock}/>
+            return <TableRowProp key={stock._id} stock={stock} deleteStock={deleteStock} modal={modal} setModal={setModal} setOperation={setOperation} setUpdateItem={setUpdateItem}/>
           }) }
         </tbody>
       </table>
@@ -92,7 +94,7 @@ function DataProp({ stocksProp, deleteStock }) {
   );
 }
 
-function TableRowProp({ stock, deleteStock }) {
+function TableRowProp({ stock, deleteStock, modal, setModal, setOperation, setUpdateItem }) {
 
   const formatDate = (date) => {
     const formatedDate = new Date(date).toLocaleDateString();
@@ -108,7 +110,7 @@ function TableRowProp({ stock, deleteStock }) {
       <td>{stock.unit}</td>
       <td>{formatDate(stock.date)}</td>
       <td>{stock.added_by}</td>
-      <td><button className={displayDataCSS.tabBtn}>Update</button></td>
+      <td><button className={displayDataCSS.tabBtn} onClick={() => {setModal(!modal); setOperation("updateStock"); setUpdateItem(stock)}}>Update</button></td>
       <td><button className={displayDataCSS.tabBtn} onClick={() => {deleteStock(stock._id)}}>Delete</button></td>
     </tr>
   );
