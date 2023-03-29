@@ -5,6 +5,8 @@ import Modal from './Modal';
 function EmployeesData() {
   const [employees, setEmployees] = useState(...[]);
   const [modal, setModal] = useState(false);
+  const [operation, setOperation] = useState("");
+  const [updateItem, setUpdateItem] = useState(...[]);
 
   const closeModal = () => {
     setModal(!modal);
@@ -53,21 +55,21 @@ function EmployeesData() {
     <div className={employeeCSS.container}>
 
       <div className={employeeCSS.header}>
-        <button className={employeeCSS.headerBtn} onClick={() => setModal(!modal)}>ADD EMPLOYEE</button>
+        <button className={employeeCSS.headerBtn} onClick={() => {setModal(!modal); setOperation("addEmployee"); setUpdateItem({})}}>ADD EMPLOYEE</button>
       </div>
 
       <div className={employeeCSS.content}>
         {employees && employees.map((employee) => {
-          return <EmployeeProp key={employee._id} employeesProp={employee} deleteEmployee={deleteEmployee} />
+          return <EmployeeProp key={employee._id} employeesProp={employee} deleteEmployee={deleteEmployee} modal={modal} setModal={setModal} setOperation={setOperation} setUpdateItem={setUpdateItem}/>
         })}
-        {modal && <Modal prop={'Employee'} closeModal={closeModal} />}
+        {modal && <Modal prop={'Employee'} closeModal={closeModal} propObject={employees} setPropObject={setEmployees} operation={operation} updateItem={updateItem}/>}
       </div>
 
     </div>
   )
 }
 
-function EmployeeProp({ employeesProp, deleteEmployee }) {
+function EmployeeProp({ employeesProp, deleteEmployee, modal, setModal, setOperation, setUpdateItem }) {
 
   const formatDate = (date) => {
     const formatedDate = new Date(date).toLocaleDateString();
@@ -95,9 +97,8 @@ function EmployeeProp({ employeesProp, deleteEmployee }) {
         <p className={employeeCSS.empDetail}>Hired On: {formatDate(employeesProp.hired_on)}</p>
         <p className={employeeCSS.empDetail}>Status: {employeesProp.emp_status}</p>
         <div className={employeeCSS.buttons}>
-          <button className={employeeCSS.button}>Update</button>
+          <button className={employeeCSS.button} onClick={() => {setModal(!modal); setOperation("updateEmployee"); setUpdateItem(employeesProp)}}>Update</button>
           <button className={employeeCSS.button} onClick={() => { deleteEmployee(employeesProp._id) }}>Delete</button>
-          <button className={employeeCSS.button}>Pay Salary</button>
         </div>
       </div>
 

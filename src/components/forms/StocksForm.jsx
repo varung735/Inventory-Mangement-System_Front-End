@@ -69,6 +69,8 @@ function StocksForm({ stock, setStock, operation, updateItem }) {
 
     setStock(stock.filter(stock => stock._id !== id));
     setStock(stock => [...stock, resData.updated_stock]);
+
+    alert("Stock Updated");
   }
 
   const handleSubmit = (e) => {
