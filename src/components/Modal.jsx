@@ -9,7 +9,7 @@ import EmployeeForm from './forms/EmployeeForm';
 import SalaryForm from './forms/SalaryForm';
 import LedgerForm from './forms/LedgerForm';
 
-function Modal({ prop, closeModal, propObject, setPropObject, operation, updateItem, empId }) {
+function Modal({ prop, closeModal, propObject, setPropObject, operation, updateItem, empId, accountId }) {
 
     return (
         <div className={modalCSS.container}>
@@ -28,7 +28,7 @@ function Modal({ prop, closeModal, propObject, setPropObject, operation, updateI
                     {prop === "Stock" && <StocksForm stock={propObject} setStock={setPropObject} operation={operation} updateItem={updateItem} />}
                     {prop === "Employee" && <EmployeeForm employee={propObject} setEmployee={setPropObject} operation={operation} updateItem={updateItem} />}
                     {prop === "Salary" && <SalaryForm salary={propObject} setSalary={setPropObject} operation={operation} updateItem={updateItem} empId={empId} />}
-                    {prop === "Ledger" && <LedgerForm />}
+                    {prop === "Ledger" && <LedgerForm ledger={propObject} setLedger={setPropObject} operation={operation} updateItem={updateItem} accountId={accountId} />}
                 </div>
             </div>
         </div>

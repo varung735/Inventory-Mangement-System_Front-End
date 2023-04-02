@@ -6,6 +6,9 @@ function LedgerData() {
 
     const [ledger, setLedger] = useState(...[]);
     const [modal, setModal] = useState(false);
+    const [operation, setOperation] = useState("");
+    const [updateItem, setUpdateItem] = useState(...[]);
+    const [accountId, setAccountId] = useState("");
 
     const closeModal = () => {
         setModal(!modal);
@@ -29,27 +32,38 @@ function LedgerData() {
         setLedger(resData.ledgers);
     }
 
+    //function to delete the complete ledger account from DB
+    const deleteLedger = async (id) => {
+
+    }
+
+    //function to delete a single entry inside a ledger account
+    const deleteEntry = async (id, entryId) => {
+
+    }
+
     useEffect(() => {
         getLedgers();
-    }, []);
+    }, [ledger]);
 
     return (
         <div className={displayDataCSS.container}>
             <div className={displayDataCSS.buttons}>
-                <button className={displayDataCSS.button} onClick={() => setModal(!modal)}>ADD ACCOUNT</button>
+                <button className={displayDataCSS.button} onClick={() => {setModal(!modal); setOperation("addAccount"); setUpdateItem({})}}>ADD ACCOUNT</button>
             </div>
 
             <div className={displayDataCSS.showData}>
                 {ledger && ledger.map((ledger) => {
-                    return <DataAccordion key={ledger._id} ledgersProp={ledger} />
+                    return <DataAccordion key={ledger._id} deleteLedger={deleteLedger} deleteEntry={deleteEntry} ledgersProp={ledger} modal={modal} setModal={setModal} 
+                    setOperation={setOperation} setUpdateItem={setUpdateItem} setAccountId={setAccountId}/>
                 })}
-                {modal && <Modal prop={'Ledger'} closeModal={closeModal} />}
+                {modal && <Modal prop={'Ledger'} closeModal={closeModal} propObject={ledger} setPropObject={setLedger} operation={operation} updateItem={updateItem} accountId={accountId}/>}
             </div>
         </div>
     )
 }
 
-function DataAccordion({ ledgersProp }) {
+function DataAccordion({ ledgersProp, deleteLedger, deleteEntry, modal, setModal, setOperation, setUpdateItem, setAccountId }) {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
@@ -62,16 +76,17 @@ function DataAccordion({ ledgersProp }) {
             </div>
             {isOpen && <div className={displayDataCSS.accordionData}>
                 <div className={displayDataCSS.accBtns}>
-                    <button className={displayDataCSS.accBtn}>Add Entry</button>
-                    <button className={displayDataCSS.accBtn}>Delete Account</button>
+                    <button className={displayDataCSS.accBtn} onClick={() => {setModal(!modal); setOperation("addEntry"); setUpdateItem({}); setAccountId(ledgersProp._id)}}>Add Entry</button>
+                    <button className={displayDataCSS.accBtn} onClick={() => {deleteLedger(ledgersProp._id)}}>Delete Account</button>
                 </div>
-                <DataProp entriesProp={ledgersProp.entries} />
+                <DataProp entriesProp={ledgersProp.entries} deleteEntry={deleteEntry} modal={modal} setModal={setModal} setOperation={setOperation} 
+                setUpdateItem={setUpdateItem} accId={ledgersProp._id} setAccountId={setAccountId}/>
             </div>}
         </div>
     );
 }
 
-function DataProp({ entriesProp }) {
+function DataProp({ entriesProp, deleteEntry, modal, setModal, setOperation, setUpdateItem, accId, setAccountId }) {
 
     return (
         <div className={displayDataCSS.dataProp}>
@@ -79,7 +94,7 @@ function DataProp({ entriesProp }) {
                 <thead>
                     <tr>
                         <th>Date</th>
-                        {/* <th>Description</th> */}
+                        <th>Description</th>
                         <th>Debit</th>
                         <th>Credit</th>
                         <th>Balance</th>
@@ -89,7 +104,8 @@ function DataProp({ entriesProp }) {
                 </thead>
                 <tbody>
                     {entriesProp && entriesProp.map((entry) => {
-                        return <TableRowProp key={entry._id} entry={entry} />
+                        return <TableRowProp key={entry._id} entry={entry} deleteEntry={deleteEntry} modal={modal} setModal={setModal} setOperation={setOperation} 
+                        setUpdateItem={setUpdateItem} accId={accId} setAccountId={setAccountId} />
                     })}
 
                 </tbody>
@@ -98,7 +114,7 @@ function DataProp({ entriesProp }) {
     );
 }
 
-function TableRowProp({ entry }) {
+function TableRowProp({ entry, modal, deleteEntry, setModal, setOperation, setUpdateItem, accId, setAccountId }) {
 
     const formatDate = (date) => {
         const formatedDate = new Date(date).toLocaleDateString();
@@ -108,12 +124,12 @@ function TableRowProp({ entry }) {
     return (
         <tr id='data'>
             <td>{formatDate(entry.date)}</td>
-            {/* <td>{entry.description}</td> */}
+            <td>{entry.description}</td>
             <td>{entry.debit}</td>
             <td>{entry.credit}</td>
             <td>{entry.balance}</td>
-            <td><button className={displayDataCSS.tabBtn}>Update</button></td>
-            <td><button className={displayDataCSS.tabBtn}>Delete</button></td>
+            <td><button className={displayDataCSS.tabBtn} onClick={() => {setModal(!modal); setOperation("updateEntry"); setUpdateItem(entry); setAccountId(accId)}}>Update</button></td>
+            <td><button className={displayDataCSS.tabBtn} onClick={() => {deleteEntry(accId, entry._id)}}>Delete</button></td>
         </tr>
     );
 }
