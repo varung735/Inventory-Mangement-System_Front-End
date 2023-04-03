@@ -26,21 +26,95 @@ function EmployeeForm({ employee, setEmployee, operation, updateItem }) {
   const [password, setPassword] = useState(""); //As We are not giving admin the power to update employee's passwords
 
   const addEmployee = async () => {
+    const res = await fetch('/employees/addEmployee', {
+      method: 'POST',
+      dataType: 'json',
+      headers: {
+        'Accept': 'application/json',
+        'content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        emp_name: empName,
+        designation: designation,
+        address: address,
+        aadhar_no: aadharNo,
+        pan_no: panNo,
+        ac_no: acNo,
+        bank_name: bankName,
+        ifsc_code: ifscCode,
+        contact_no: contactNo,
+        email: email,
+        hired_on: hiredOn,
+        emp_status: empStatus,
+        role: role,
+        password: password
+      }),
+      credentials: 'include'
+    });
 
+    const resData = await res.json();
+    console.log(resData);
+
+    setEmployee(employee => [...employee, resData.employee_data]);
   }
 
-  const updateEmployee = async () => {
+  const updateEmployee = async (id) => {
+    const res = await fetch(`/employees/updateEmployee/${id}` , {
+      method: 'PUT',
+      dataType: 'json',
+      headers: {
+        'Accept': 'application/json',
+        'content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        emp_name: empName,
+        designation: designation,
+        address: address,
+        aadhar_no: aadharNo,
+        pan_no: panNo,
+        ac_no: acNo,
+        bank_name: bankName,
+        ifsc_code: ifscCode,
+        contact_no: contactNo,
+        email: email,
+        hired_on: hiredOn,
+        emp_status: empStatus,
+        role: role
+      }),
+      credentials: 'include'
+    });
 
+    const resData = await res.json();
+    console.log(resData);
+
+    setEmployee(employee.filter(employee => employee._id !== id));
+    setEmployee(employee => [...employee, resData.employee_data]);
+
+    alert("Employee Updated Successfully.");
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if(operation === "updateEmployee"){
-      updateEmployee();
+      updateEmployee(updateItem._id);
     }
     else{
       addEmployee();
+      setEmpName("");
+      setDesignation("");
+      setAddress("");
+      setAadharNo("");
+      setPanNo("");
+      setAcNo("");
+      setBankName("");
+      setIfscCode("");
+      setContactNo("");
+      setEmail("");
+      setHiredOn("");
+      setEmpStatus("");
+      setRole("");
+      setPassword("");
     }
   }
 

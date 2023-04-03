@@ -25,11 +25,11 @@ function Login() {
           'Accept': 'application/json',
           'content-Type': 'application/json'
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(data)
       });
       
       const resData = await res.json();
-      // console.log(resData);
+      console.log(resData);
 
       Cookies.set('user-role', resData.employee._id, { expires: 1 });
 
