@@ -12,11 +12,6 @@ function Login() {
   //to handle the login
   const login = async () => {
 
-    const data = {
-      email: email,
-      password: password
-    }
-
     try {
       const res = await fetch('/employees/login', {
         method: 'POST',
@@ -25,7 +20,10 @@ function Login() {
           'Accept': 'application/json',
           'content-Type': 'application/json'
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify({
+          email: email,
+          password: password
+        })
       });
       
       const resData = await res.json();
