@@ -13,7 +13,7 @@ function Login() {
   const login = async () => {
 
     try {
-      const res = await fetch('/employees/login', {
+      const res = await fetch('https://ims-backend-3u4x.onrender.com/employees/login', {
         method: 'POST',
         dataType: 'json',
         headers: {
