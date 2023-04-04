@@ -4,6 +4,8 @@ import Modal from './Modal';
 
 function SalesData() {
 
+  const REACT_APP_REQ_URL = process.env.REACT_APP_REQ_URL;
+
   const [sales, setSales] = useState(...[]);
   const [modal, setModal] = useState(false);
   const [operation, setOperation] = useState(""); 
@@ -15,7 +17,7 @@ function SalesData() {
 
   const getSales = async () => {
 
-    const res = await fetch('/sales/getSales', {
+    const res = await fetch(`${REACT_APP_REQ_URL}/sales/getSales`, {
       method: 'GET',
       dataType: 'json',
       headers: {
@@ -32,7 +34,7 @@ function SalesData() {
   }
 
   const deleteSales = async (id) => {
-    await fetch(`/sales/deleteSales/${id}`, {
+    await fetch(`${REACT_APP_REQ_URL}/sales/deleteSales/${id}`, {
       method: 'DELETE',
       dataType: 'json',
       headers: {

@@ -5,6 +5,8 @@ import Cookies from 'js-cookie';
 
 function Login() {
 
+  const REACT_APP_REQ_URL = process.env.REACT_APP_REQ_URL;
+
   const navigate = useNavigate()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,7 +15,7 @@ function Login() {
   const login = async () => {
 
     try {
-      const res = await fetch('https://ims-backend-3u4x.onrender.com/employees/login', {
+      const res = await fetch(`${REACT_APP_REQ_URL}/employees/login`, {
         method: 'POST',
         dataType: 'json',
         headers: {
