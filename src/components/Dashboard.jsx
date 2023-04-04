@@ -23,7 +23,7 @@ function Dashboard() {
     const userId = Cookies.get('user-role');
     // console.log(userId);
 
-    const res = await fetch(`/employees/getEmployee/${userId}`, {
+    const res = await fetch(`https://ims-backend-3u4x.onrender.com/employees/getEmployee/${userId}`, {
       method: 'GET',
       dataType: 'json',
       headers: {
