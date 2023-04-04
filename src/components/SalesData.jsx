@@ -4,8 +4,6 @@ import Modal from './Modal';
 
 function SalesData() {
 
-  const REACT_APP_REQ_URL = process.env.REACT_APP_REQ_URL;
-
   const [sales, setSales] = useState(...[]);
   const [modal, setModal] = useState(false);
   const [operation, setOperation] = useState(""); 
