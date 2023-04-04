@@ -19,7 +19,7 @@ function SideNav({ link }) {
    const logout = async () => {
       try {
 
-         const res = await fetch('/employees/logout', {
+         const res = await fetch('https://ims-backend-3u4x.onrender.com/employees/logout', {
             method: 'GET',
             dataType: 'json',
             headers: {
