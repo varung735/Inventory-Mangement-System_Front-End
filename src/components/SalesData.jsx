@@ -17,7 +17,7 @@ function SalesData() {
 
   const getSales = async () => {
 
-    const res = await fetch(`${REACT_APP_REQ_URL}/sales/getSales`, {
+    const res = await fetch('https://ims-backend-3u4x.onrender.com/sales/getSales', {
       method: 'GET',
       dataType: 'json',
       headers: {
@@ -34,7 +34,7 @@ function SalesData() {
   }
 
   const deleteSales = async (id) => {
-    await fetch(`${REACT_APP_REQ_URL}/sales/deleteSales/${id}`, {
+    await fetch(`https://ims-backend-3u4x.onrender.com/sales/deleteSales/${id}`, {
       method: 'DELETE',
       dataType: 'json',
       headers: {

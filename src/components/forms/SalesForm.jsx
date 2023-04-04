@@ -22,7 +22,7 @@ function SalesForm({ sales, setSales, operation, updateItem }) {
   //to add a sale in the DB
   const addSales = async () => {
 
-    const res = await fetch('/sales/addSales', {
+    const res = await fetch('https://ims-backend-3u4x.onrender.com/sales/addSales', {
       method: 'POST',
       dataType: 'json',
       headers: {
@@ -53,7 +53,7 @@ function SalesForm({ sales, setSales, operation, updateItem }) {
 
   // to update a existing sale in DB
   const updateSales = async (id) => {
-    const res = await fetch(`/sales/updateSales/${id}`, {
+    const res = await fetch(`https://ims-backend-3u4x.onrender.com/sales/updateSales/${id}`, {
       method: 'PUT',
       dataType: 'json',
       headers: {
