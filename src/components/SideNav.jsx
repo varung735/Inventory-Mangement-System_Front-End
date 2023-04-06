@@ -5,38 +5,15 @@ import Cookies from 'js-cookie';
 
 function SideNav({ link }) {
    const navigate = useNavigate();
-   let role;
 
    //send the data back to the parent which is Dashboard component
    const sideNavLink = (event) => {
       link(event.target.classList[1]);
    }
-
    
-   const loggedUserInfo = async () => {
-      const userId = Cookies.get('user-role');
-      // console.log(userId);
-      
-      const res = await fetch(`https://ims-backend-3u4x.onrender.com/employees/getEmployee/${userId}`, {
-         method: 'GET',
-        dataType: 'json',
-        headers: {
-           'Accept': 'application/json',
-           'content-Type': 'application/json',
-           'token': Cookies.get('token')
-         }
-      });
-      
-      const resData = await res.json();
-      console.log(resData.employee);
-      
-      Cookies.set('user-role', resData.employee.role);
-      role = Cookies.get('user-role');
-   }
-   
-   useEffect(() => {
-      loggedUserInfo();
-   });
+   //get the role from the cookies
+   const role = Cookies.get('user-role');
+   // console.log(role);
    
    //handles logout feature
    const logout = async () => {
@@ -48,7 +25,7 @@ function SideNav({ link }) {
             headers: {
                'Accept': 'application/json',
                'content-Type': 'application/json',
-               'token': Cookies.get('token')
+               'token': Cookies.get()
             },
             credentials: 'include'
          });

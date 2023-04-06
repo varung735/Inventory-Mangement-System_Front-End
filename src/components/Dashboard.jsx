@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Cookies from "js-cookie";
 import dashboardCSS from '../styles/dashboard.module.css';
 import PurchaseData from './PurchaseData';
 import SalesData from './SalesData';
@@ -17,6 +18,30 @@ function Dashboard() {
   const getSideNavLink = (link) => {
     setSideNavLink(link);
   }
+
+  const loggedUserInfo = async () => {
+    const userId = Cookies.get('user-role');
+    // console.log(userId);
+    
+    const res = await fetch(`https://ims-backend-3u4x.onrender.com/employees/getEmployee/${userId}`, {
+       method: 'GET',
+      dataType: 'json',
+      headers: {
+         'Accept': 'application/json',
+         'content-Type': 'application/json',
+         'token': Cookies.get('token')
+       }
+    });
+    
+    const resData = await res.json();
+    console.log(resData.employee);
+    
+    Cookies.set('user-role', resData.employee.role);
+ }
+ 
+ useEffect(() => {
+    loggedUserInfo();
+ }, []);
 
   return (
     <div className={dashboardCSS.container}>
