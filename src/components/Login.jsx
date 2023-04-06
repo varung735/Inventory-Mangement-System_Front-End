@@ -29,7 +29,7 @@ function Login() {
       const resData = await res.json();
       console.log(resData);
 
-      // Cookies.set('token', resData.token, { expires: 1 });
+      Cookies.set('token', resData.token, { expires: 1 });
       Cookies.set('user-role', resData.employee._id, { expires: 1 });
 
       if(resData.success && resData){
