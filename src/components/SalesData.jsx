@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import displayDataCSS from "../styles/displaydata.module.css";
 import Modal from './Modal';
+import Cookies from 'js-cookie';
 
 function SalesData() {
 
