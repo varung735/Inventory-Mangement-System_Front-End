@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import sideNavCSS from "../styles/sidenav.module.css";
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
