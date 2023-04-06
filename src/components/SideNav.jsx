@@ -11,34 +11,35 @@ function SideNav({ link }) {
       link(event.target.classList[1]);
    }
 
-   //get the role from the cookies
-   const role = Cookies.get('user-role');
-   // console.log(role);
-
+   
    const loggedUserInfo = async () => {
       const userId = Cookies.get('user-role');
       // console.log(userId);
-  
+      
       const res = await fetch(`https://ims-backend-3u4x.onrender.com/employees/getEmployee/${userId}`, {
-        method: 'GET',
+         method: 'GET',
         dataType: 'json',
         headers: {
-          'Accept': 'application/json',
-          'content-Type': 'application/json',
-          'token': Cookies.get('token')
-        }
+           'Accept': 'application/json',
+           'content-Type': 'application/json',
+           'token': Cookies.get('token')
+         }
       });
-  
+      
       const resData = await res.json();
       console.log(resData.employee);
-  
+      
       Cookies.set('user-role', resData.employee.role);
-    }
-  
-    useEffect(() => {
+   }
+   
+   useEffect(() => {
       loggedUserInfo();
-    }, []);
-
+   }, []);
+   
+   //get the role from the cookies
+   const role = Cookies.get('user-role');
+   // console.log(role);
+   
    //handles logout feature
    const logout = async () => {
       try {
@@ -67,7 +68,6 @@ function SideNav({ link }) {
       } catch (error) {
          console.log(error);
       }
-
    }
 
    return (
