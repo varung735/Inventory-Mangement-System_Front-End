@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import formsCSS from '../../styles/form.module.css';
+import Cookies from 'js-cookie';
 
 function EmployeeForm({ employee, setEmployee, operation, updateItem }) {
 
@@ -26,12 +27,13 @@ function EmployeeForm({ employee, setEmployee, operation, updateItem }) {
   const [password, setPassword] = useState(""); //As We are not giving admin the power to update employee's passwords
 
   const addEmployee = async () => {
-    const res = await fetch('/employees/addEmployee', {
+    const res = await fetch('https://ims-backend-3u4x.onrender.com/employees/addEmployee', {
       method: 'POST',
       dataType: 'json',
       headers: {
         'Accept': 'application/json',
-        'content-Type': 'application/json'
+        'content-Type': 'application/json',
+        'token': Cookies.get('token')
       },
       body: JSON.stringify({
         emp_name: empName,
@@ -59,12 +61,13 @@ function EmployeeForm({ employee, setEmployee, operation, updateItem }) {
   }
 
   const updateEmployee = async (id) => {
-    const res = await fetch(`/employees/updateEmployee/${id}` , {
+    const res = await fetch(`https://ims-backend-3u4x.onrender.com/employees/updateEmployee/${id}` , {
       method: 'PUT',
       dataType: 'json',
       headers: {
         'Accept': 'application/json',
-        'content-Type': 'application/json'
+        'content-Type': 'application/json',
+        'token': Cookies.get('token')
       },
       body: JSON.stringify({
         emp_name: empName,

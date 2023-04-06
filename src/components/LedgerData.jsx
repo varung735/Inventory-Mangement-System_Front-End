@@ -16,7 +16,7 @@ function LedgerData() {
 
     const getLedgers = async () => {
 
-        const res = await fetch('/ledgers/getLedgers', {
+        const res = await fetch('https://ims-backend-3u4x.onrender.com/ledgers/getLedgers', {
             method: 'GET',
             dataType: 'json',
             headers: {

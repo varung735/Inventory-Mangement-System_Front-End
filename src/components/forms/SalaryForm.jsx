@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import formsCSS from '../../styles/form.module.css';
+import Cookies from "js-cookie";
 
 function SalaryForm({ salary, setSalary, operation, updateItem, empId }) {
 
@@ -15,12 +16,13 @@ function SalaryForm({ salary, setSalary, operation, updateItem, empId }) {
   const [amount, setAmount] = useState(updateItem.amount || "");
 
   const addSalary = async () => {
-    const res = await fetch('/salaries/addSalary', {
+    const res = await fetch('https://ims-backend-3u4x.onrender.com/salaries/addSalary', {
       method: 'POST',
       dataType: 'json',
       headers: {
         "Accept": "application/json",
-        "content-Type": "application/json"
+        "content-Type": "application/json",
+        'token': Cookies.get('token')
       },
       body: JSON.stringify({
         id: empId,
@@ -35,12 +37,13 @@ function SalaryForm({ salary, setSalary, operation, updateItem, empId }) {
   }
 
   const updateSalary = async (id, salaryId) => {
-    const res = await fetch('salaries/updateSalary', {
+    const res = await fetch('https://ims-backend-3u4x.onrender.com/salaries/updateSalary', {
       method: 'PUT',
       dataType: 'json',
       headers: {
         'Accept': 'application/json',
-        'content-Type': 'application/json'
+        'content-Type': 'application/json',
+        'token': Cookies.get('token')
       },
       body: JSON.stringify({
         id: id,

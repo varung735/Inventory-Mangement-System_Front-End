@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import formsCSS from '../../styles/form.module.css';
+import Cookies from 'js-cookie'
 
 function LedgerForm({ ledger, setLedger, operation, updateItem, accountId }) {
 
@@ -19,12 +20,13 @@ function LedgerForm({ ledger, setLedger, operation, updateItem, accountId }) {
 
   //function to add ledger account to DB
   const addAccount = async () => {
-    const res = await fetch('/ledgers/addLedgers', {
+    const res = await fetch('https://ims-backend-3u4x.onrender.com/ledgers/addLedgers', {
       method: 'POST',
       dataType: 'json',
       headers: {
         'Accept': 'application/json',
-        'content-Type': 'application/json'
+        'content-Type': 'application/json',
+        'token': Cookies.get('token')
       },
       body: JSON.stringify({
         account_of: accountName,
@@ -45,12 +47,13 @@ function LedgerForm({ ledger, setLedger, operation, updateItem, accountId }) {
 
   //function to add an entry inside ledger account
   const addEntry = async () => {
-    const res = await fetch('/entries/addEntry', {
+    const res = await fetch('https://ims-backend-3u4x.onrender.com/entries/addEntry', {
       method: 'POST',
       dataType: 'json',
       headers: {
         'Accept': 'application/json',
-        'content-Type': 'application/json'
+        'content-Type': 'application/json',
+        'token': Cookies.get('token')
       },
       body: JSON.stringify({
         account_id: accountId,

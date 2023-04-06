@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import formsCSS from '../../styles/form.module.css';
+import Cookies from 'js-cookie';
 
 function InventoryForm({ inventory, setInventory, operation, updateItem }) {
 
@@ -10,12 +11,13 @@ function InventoryForm({ inventory, setInventory, operation, updateItem }) {
   const [addedBy, setAddedBy] = useState(updateItem.added_by || "");
   
   const addInventory = async () => {
-    const res = await fetch('inventories/addInventory', {
+    const res = await fetch('https://ims-backend-3u4x.onrender.com/inventories/addInventory', {
       method: 'POST',
       dataType: 'json',
       headers: {
         'Accept': 'application/json',
-        'content-Type': 'application/json'
+        'content-Type': 'application/json',
+        'token': Cookies.get('token')
       },
       body: JSON.stringify({
         item_name: itemName,
@@ -34,12 +36,13 @@ function InventoryForm({ inventory, setInventory, operation, updateItem }) {
   }
 
   const updateInventory = async (id) => {
-    const res = await fetch(`inventories/updateInventory/${id}`, {
+    const res = await fetch(`https://ims-backend-3u4x.onrender.com/inventories/updateInventory/${id}`, {
       method: 'PUT',
       dataType: 'json',
       headers: {
         'Accept': 'application/json',
-        'content-Type': 'application/json'
+        'content-Type': 'application/json',
+        'token': Cookies.get('token')
       },
       body: JSON.stringify({
         item_name: itemName,

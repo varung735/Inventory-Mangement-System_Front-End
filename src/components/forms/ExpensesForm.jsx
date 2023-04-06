@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import formsCSS from '../../styles/form.module.css';
+import Cookies from 'js-cookie';
 
 function ExpensesForm({ expense, setExpense, operation, updateItem }) {
 
@@ -10,12 +11,13 @@ function ExpensesForm({ expense, setExpense, operation, updateItem }) {
   const [addedBy, setAddedBy] = useState(updateItem.added_by || "");
 
   const addExpense = async () => {
-    const res = await fetch('expenses/addExpenses', {
+    const res = await fetch('https://ims-backend-3u4x.onrender.com/expenses/addExpenses', {
       method: 'POST',
       dataType: 'json',
       headers: {
         'Accept': 'application/json',
-        'content-Type': 'application/json'
+        'content-Type': 'application/json',
+        'token': Cookies.get('token')
       },
       body: JSON.stringify({
         expense_name: expenseName,
@@ -34,12 +36,13 @@ function ExpensesForm({ expense, setExpense, operation, updateItem }) {
   }
 
   const updateExpense = async (id) => {
-    const res = await fetch(`expenses/updateExpenses/${id}`, {
+    const res = await fetch(`https://ims-backend-3u4x.onrender.com/expenses/updateExpenses/${id}`, {
       method: 'PUT',
       dataType: 'json',
       headers: {
         'Accept': 'application/json',
-        'content-Type': 'application/json'
+        'content-Type': 'application/json',
+        'token': Cookies.get('token')
       },
       body: JSON.stringify({
         expense_name: expenseName,

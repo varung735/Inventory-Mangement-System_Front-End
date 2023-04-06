@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import formsCSS from '../../styles/form.module.css';
+import Cookies from 'js-cookie';
 
 function PurchasesForm({ purchase, setPurchase, operation, updateItem }) {
 
@@ -22,12 +23,13 @@ function PurchasesForm({ purchase, setPurchase, operation, updateItem }) {
   
   // to add purchase data to DB
   const addPurchase = async () => {
-    const res = await fetch('purchases/addPurchases', {
+    const res = await fetch('https://ims-backend-3u4x.onrender.com/purchases/addPurchases', {
       method: 'POST',
       dataType: 'json',
       headers: {
         'Accept': 'application/json',
-        'content-Type': 'application/json'
+        'content-Type': 'application/json',
+        'token': Cookies.get('token')
       },
       body: JSON.stringify({
         purchase_name: purchaseName,
@@ -50,12 +52,13 @@ function PurchasesForm({ purchase, setPurchase, operation, updateItem }) {
 
   //to update the existing data in DB
   const updatePurchase = async (id) => {
-    const res = await fetch(`purchases/updatePurchases/${id}`, {
+    const res = await fetch(`https://ims-backend-3u4x.onrender.com/purchases/updatePurchases/${id}`, {
       method: 'PUT',
       dataType: 'json',
       headers: {
         'Accept': 'application/json',
-        'content-Type': 'application/json'
+        'content-Type': 'application/json',
+        'token': Cookies.get('token')
       },
       body: JSON.stringify({
         purchase_name: purchaseName,

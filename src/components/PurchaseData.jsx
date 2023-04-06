@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import displayDataCSS from "../styles/displaydata.module.css";
 import Modal from './Modal';
+import Cookies from 'js-cookie';
 
 function PurchaseData() {
 
@@ -20,7 +21,8 @@ function PurchaseData() {
       dataType: 'json',
       headers: {
         'Accept': 'application/json',
-        'content-Type': 'application/json'
+        'content-Type': 'application/json',
+        'token': Cookies.get('token')
       },
       credentials: 'include'
     });
@@ -38,7 +40,8 @@ function PurchaseData() {
       dataType: 'json',
       headers: {
         'Accept': 'application/json',
-        'content-Type': 'application/json'
+        'content-Type': 'application/json',
+        'token': Cookies.get('token')
       },
       credentials: 'include'
     });

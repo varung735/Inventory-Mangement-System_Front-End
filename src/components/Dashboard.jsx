@@ -12,36 +12,12 @@ import SalaryData from "./SalaryData";
 import LedgerData from "./LedgerData";
 
 function Dashboard() {
-  const [sideNavOpen, setSideNavOpen] = useState(false);
+  const [sideNavOpen, setSideNavOpen] = useState(true);
   const [sidenavLink, setSideNavLink] = useState("sales");
 
   const getSideNavLink = (link) => {
     setSideNavLink(link);
   }
-
-  const loggedUserInfo = async () => {
-    const userId = Cookies.get('user-role');
-    // console.log(userId);
-
-    const res = await fetch(`https://ims-backend-3u4x.onrender.com/employees/getEmployee/${userId}`, {
-      method: 'GET',
-      dataType: 'json',
-      headers: {
-        'Accept': 'application/json',
-        'content-Type': 'application/json',
-        'token': Cookies.get('token')
-      }
-    });
-
-    const resData = await res.json();
-    console.log(resData.employee);
-
-    Cookies.set('user-role', resData.employee.role);
-  }
-
-  useEffect(() => {
-    loggedUserInfo();
-  }, []);
 
   return (
     <div className={dashboardCSS.container}>

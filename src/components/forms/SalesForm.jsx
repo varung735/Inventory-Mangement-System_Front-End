@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import formsCSS from '../../styles/form.module.css';
+import Cookies from 'js-cookie';
 
 function SalesForm({ sales, setSales, operation, updateItem }) {
 
@@ -27,7 +28,8 @@ function SalesForm({ sales, setSales, operation, updateItem }) {
       dataType: 'json',
       headers: {
         'Accept': 'application/json',
-        'content-Type': 'application/json'
+        'content-Type': 'application/json',
+        'token': Cookies.get('token')
       },
       body: JSON.stringify({
         product_name: productName,
@@ -58,7 +60,8 @@ function SalesForm({ sales, setSales, operation, updateItem }) {
       dataType: 'json',
       headers: {
         'Accept': 'application/json',
-        'content-Type': 'application/json'
+        'content-Type': 'application/json',
+        'token': Cookies.get('token')
       },
       body: JSON.stringify({
         product_name: productName,

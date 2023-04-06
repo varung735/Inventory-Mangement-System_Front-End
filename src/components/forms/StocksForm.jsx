@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import formsCSS from '../../styles/form.module.css';
+import Cookies from 'js-cookie';
 
 function StocksForm({ stock, setStock, operation, updateItem }) {
 
@@ -19,12 +20,13 @@ function StocksForm({ stock, setStock, operation, updateItem }) {
   const [addedBy, setAddedBy] = useState(updateItem.added_by || "");
 
   const addStock = async () => {
-    const res = await fetch('/stocks/addStocks', {
+    const res = await fetch('https://ims-backend-3u4x.onrender.com/stocks/addStocks', {
       method: 'POST',
       dataType: 'json',
       headers: {
         'Accept': 'application/json',
-        'content-Type': 'application/json'
+        'content-Type': 'application/json',
+        'token': Cookies.get('token')
       },
       body: JSON.stringify({
         stock_name: stockName,
@@ -45,12 +47,13 @@ function StocksForm({ stock, setStock, operation, updateItem }) {
   }
 
   const updateStock = async (id) => {
-    const res = await fetch(`/stocks/updateStocks/${id}`, {
+    const res = await fetch(`https://ims-backend-3u4x.onrender.com/stocks/updateStocks/${id}`, {
       method: 'PUT',
       dataType: 'json',
       headers: {
         'Accept': 'application/json',
-        'content-Type': 'application/json'
+        'content-Type': 'application/json',
+        'token': Cookies.get('token')
       },
       body: JSON.stringify({
         stock_name: stockName,

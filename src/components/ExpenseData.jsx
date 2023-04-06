@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import displayDataCSS from "../styles/displaydata.module.css";
 import Modal from './Modal';
+import Cookies from 'js-cookie';
 
 function ExpenseData() {
 
@@ -15,12 +16,13 @@ function ExpenseData() {
 
   const getExpenses = async () => {
 
-    const res = await fetch('/expenses/getExpenses', {
+    const res = await fetch('https://ims-backend-3u4x.onrender.com/expenses/getExpenses', {
       method: 'GET',
       dataType: 'json',
       headers: {
         'Accept': 'application/json',
-        'content-Type': 'application/json'
+        'content-Type': 'application/json',
+        'token': Cookies.get('token')
       },
       credentials: 'include'
     });
@@ -33,12 +35,13 @@ function ExpenseData() {
 
   const deleteExpenses = async (id) => {
 
-    await fetch(`/expenses/deleteExpenses/${id}`, {
+    await fetch(`https://ims-backend-3u4x.onrender.com/expenses/deleteExpenses/${id}`, {
       method: 'DELETE',
       dataType: 'json',
       headers: {
         'Accept': 'application/json',
-        'content-Type': 'application/json'
+        'content-Type': 'application/json',
+        'token': Cookies.get('token')
       },
       credentials: 'include'
     }); //for debugging, you can put this code block to a variable like "const res = await fetch"

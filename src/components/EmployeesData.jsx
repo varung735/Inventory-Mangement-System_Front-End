@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import employeeCSS from "../styles/employee.module.css";
 import Modal from './Modal';
+import Cookies from 'js-cookie';
 
 function EmployeesData() {
   const [employees, setEmployees] = useState(...[]);
@@ -13,12 +14,13 @@ function EmployeesData() {
   }
 
   const getEmployees = async () => {
-    const res = await fetch('/employees/getEmployees', {
+    const res = await fetch('https://ims-backend-3u4x.onrender.com/employees/getEmployees', {
       method: 'GET',
       dataType: 'json',
       headers: {
         'Accept': 'application/json',
-        'content-Type': 'application/json'
+        'content-Type': 'application/json',
+        'token': Cookies.get('token')
       }
     });
 
@@ -35,7 +37,8 @@ function EmployeesData() {
       dataType: 'json',
       headers: {
         'Accept': 'application/json',
-        'content-Type': 'application/json'
+        'content-Type': 'application/json',
+        'token': Cookies.get('token')
       },
       credentials: 'include'
     });

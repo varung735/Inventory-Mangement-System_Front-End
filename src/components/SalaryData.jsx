@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import displayDataCSS from "../styles/displaydata.module.css";
 import Modal from './Modal';
+import Cookies from 'js-cookie';
 
 function SalaryData() {
   const [salary, setSalary] = useState(...[]);
@@ -14,12 +15,13 @@ function SalaryData() {
   }
 
   const getEmployees = async () => {
-    const res = await fetch('/employees/getEmployees', {
+    const res = await fetch('https://ims-backend-3u4x.onrender.com/employees/getEmployees', {
       method: 'GET',
       dataType: 'json',
       headers: {
         'Accept': 'application/json',
-        'content-Type': 'application/json'
+        'content-Type': 'application/json',
+        'token': Cookies.get('token')
       }
     });
 
@@ -30,12 +32,13 @@ function SalaryData() {
   }
 
   const deleteSalary = async (empId, salaryId) => {
-    const res = await fetch('/salaries/deleteSalary', {
+    const res = await fetch('https://ims-backend-3u4x.onrender.com/salaries/deleteSalary', {
       method: 'DELETE',
       dataType: 'json',
       headers: {
         'Accept': 'application/json',
-        'content-Type': 'application/json'
+        'content-Type': 'application/json',
+        'token': Cookies.get('token')
       },
       body: JSON.stringify({
         id: empId,
