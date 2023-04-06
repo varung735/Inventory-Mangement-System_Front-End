@@ -36,7 +36,7 @@ function SideNav({ link }) {
    
    useEffect(() => {
       loggedUserInfo();
-   }, []);
+   });
    
    //handles logout feature
    const logout = async () => {
