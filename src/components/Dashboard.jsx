@@ -12,7 +12,7 @@ import SalaryData from "./SalaryData";
 import LedgerData from "./LedgerData";
 
 function Dashboard() {
-  const [sideNavOpen, setSideNavOpen] = useState(true);
+  const [sideNavOpen, setSideNavOpen] = useState(false);
   const [sidenavLink, setSideNavLink] = useState("sales");
 
   const getSideNavLink = (link) => {
