@@ -35,6 +35,7 @@ function SideNav({ link }) {
 
          if (resData.success) {
             Cookies.remove('user-role');
+            Cookies.remove('token');
             navigate('/');
          }
          else {
