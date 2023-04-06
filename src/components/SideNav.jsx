@@ -49,7 +49,8 @@ function SideNav({ link }) {
             dataType: 'json',
             headers: {
                'Accept': 'application/json',
-               'content-Type': 'application/json'
+               'content-Type': 'application/json',
+               'token': Cookies.get('token')
             },
             credentials: 'include'
          });
