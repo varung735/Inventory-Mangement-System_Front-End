@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 
 function SideNav({ link }) {
    const navigate = useNavigate();
+   let role;
 
    //send the data back to the parent which is Dashboard component
    const sideNavLink = (event) => {
@@ -30,15 +31,12 @@ function SideNav({ link }) {
       console.log(resData.employee);
       
       Cookies.set('user-role', resData.employee.role);
+      role = Cookies.get('user-role');
    }
    
    useEffect(() => {
       loggedUserInfo();
    }, []);
-   
-   //get the role from the cookies
-   const role = Cookies.get('user-role');
-   // console.log(role);
    
    //handles logout feature
    const logout = async () => {
