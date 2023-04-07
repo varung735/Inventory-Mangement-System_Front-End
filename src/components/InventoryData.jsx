@@ -16,7 +16,7 @@ function InventoryData() {
 
   const getInventories = async () => {
 
-    const res = await fetch('/inventories/getInventory', {
+    const res = await fetch('https://ims-backend-3u4x.onrender.com/inventories/getInventory', {
       method: 'GET',
       dataType: 'json',
       headers: {
@@ -35,7 +35,7 @@ function InventoryData() {
 
   const deleteInventory = async (id) => {
 
-    await fetch(`/inventories/deleteInventory/${id}`, {
+    await fetch(`https://ims-backend-3u4x.onrender.com/inventories/deleteInventory/${id}`, {
       method: 'DELETE',
       dataType: 'json',
       headers: {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import displayDataCSS from "../styles/displaydata.module.css";
 import Modal from './Modal';
+import Cookies from "js-cookie";
 
 function LedgerData() {
 
@@ -21,7 +22,8 @@ function LedgerData() {
             dataType: 'json',
             headers: {
                 'Accept': 'application/json',
-                'content-Type': 'application/json'
+                'content-Type': 'application/json',
+                'token': Cookies.get('token')
             },
             credentials: 'include'
         });
@@ -34,12 +36,40 @@ function LedgerData() {
 
     //function to delete the complete ledger account from DB
     const deleteLedger = async (id) => {
+        const res = await fetch(`https://ims-backend-3u4x.onrender.com/ledgers/deleteLedgers/${id}`, {
+            method: 'DELETE',
+            dataType: 'json',
+            headers: {
+                'Accept': 'application/json',
+                'content-Type': 'application/json',
+                'token': Cookies.get('token')
+            },
+            credentials: 'include'
+        });
 
+        const resData = await res.json();
+        console.log(resData);
     }
 
     //function to delete a single entry inside a ledger account
     const deleteEntry = async (id, entryId) => {
+        const res = await fetch('https://ims-backend-3u4x.onrender.com/entries/deleteEntry', {
+            method: 'DELETE',
+            dataType: 'json',
+            headers: {
+                'Accept': 'application/json',
+                'content-Type': 'application/json',
+                'token': Cookies.get('token')
+            },
+            body: {
+                accoount_id: id,
+                entry_id: entryId
+            },
+            credentials: true
+        });
 
+        const resData = await res.json();
+        console.log(resData);
     }
 
     useEffect(() => {

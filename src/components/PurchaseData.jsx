@@ -16,7 +16,7 @@ function PurchaseData() {
 
   const getPurchases = async () => {
 
-    const res = await fetch('/purchases/getPurchases', {
+    const res = await fetch('https://ims-backend-3u4x.onrender.com/purchases/getPurchases', {
       method: 'GET',
       dataType: 'json',
       headers: {
@@ -35,7 +35,7 @@ function PurchaseData() {
 
   const deletePurchases = async (id) => {
 
-    await fetch(`/purchases/deletePurchases/${id}`, {
+    await fetch(`https://ims-backend-3u4x.onrender.com/purchases/deletePurchases/${id}`, {
       method: 'DELETE',
       dataType: 'json',
       headers: {

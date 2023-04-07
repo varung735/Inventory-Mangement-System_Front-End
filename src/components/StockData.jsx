@@ -16,7 +16,7 @@ function StockData() {
 
   const getStocks = async () => {
 
-    const res = await fetch('/stocks/getStocks', {
+    const res = await fetch('https://ims-backend-3u4x.onrender.com/stocks/getStocks', {
       method: 'GET',
       dataType: 'json',
       headers: {
@@ -35,7 +35,7 @@ function StockData() {
 
   const deleteStock = async (id) => {
 
-    await fetch(`/stocks/deleteStocks/${id}`, {
+    await fetch(`https://ims-backend-3u4x.onrender.com/stocks/deleteStocks/${id}`, {
       method: 'DELETE',
       dataType: 'json',
       headers: {
