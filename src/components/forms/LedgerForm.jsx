@@ -76,7 +76,7 @@ function LedgerForm({ ledger, setLedger, operation, updateItem, accountId }) {
 
   //function to update an entry inside ledger account
   const updateEntry = async (entryId) => {
-    const res = await fetch('/entries/updateEntry', {
+    const res = await fetch('https://ims-backend-3u4x.onrender.com/entries/updateEntry', {
       method: 'PUT',
       dataType: 'json',
       headers: {

@@ -74,6 +74,7 @@ function LedgerData() {
         console.log(resData);
 
         alert("deleted entry successfully.");
+        setLedger(ledger.filter(ledger.entries._id != id));
     }
 
     useEffect(() => {
