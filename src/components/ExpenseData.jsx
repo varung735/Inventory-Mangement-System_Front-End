@@ -51,6 +51,7 @@ function ExpenseData() {
     // console.log(resData);
 
     setExpense(expense.filter(expense => expense._id !== id));
+    alert("deleted expense successfully.");
   }
 
   useEffect(() => {

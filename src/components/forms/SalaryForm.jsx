@@ -33,7 +33,9 @@ function SalaryForm({ salary, setSalary, operation, updateItem, empId }) {
     });
 
     const resData = await res.json();
-    console.log(resData);
+    // console.log(resData);
+
+    alert("added salary successfully");
   }
 
   const updateSalary = async (id, salaryId) => {
@@ -57,7 +59,7 @@ function SalaryForm({ salary, setSalary, operation, updateItem, empId }) {
     const resData = await res.json();
     console.log(resData);
 
-    alert("Salary Updated");
+    alert("updated salary successfully");
   }
 
   const handleSubmit = (e) => {

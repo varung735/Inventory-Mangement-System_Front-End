@@ -50,6 +50,7 @@ function StockData() {
     // console.log(resData);
 
     setStock(stock.filter(stock => stock._id !== id));
+    alert("deleted stocks successfully.");
   }
 
   useEffect(() => {

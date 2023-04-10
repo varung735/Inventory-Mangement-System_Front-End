@@ -43,6 +43,8 @@ function LedgerForm({ ledger, setLedger, operation, updateItem, accountId }) {
 
     const resData = await res.json();
     console.log(resData);
+
+    alert("added account successfully.");
   }
 
   //function to add an entry inside ledger account
@@ -68,6 +70,8 @@ function LedgerForm({ ledger, setLedger, operation, updateItem, accountId }) {
 
     const resData = await res.json();
     console.log(resData);
+
+    alert("added entry successfully.");
   }
 
   //function to update an entry inside ledger account
@@ -94,7 +98,7 @@ function LedgerForm({ ledger, setLedger, operation, updateItem, accountId }) {
     const resData = await res.json();
     console.log(resData);
 
-    alert("Entry Updated");
+    alert("updated entry successfully.");
   }
 
   const handleSubmit = (e) => {

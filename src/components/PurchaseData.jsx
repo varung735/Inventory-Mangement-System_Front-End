@@ -50,6 +50,7 @@ function PurchaseData() {
     // console.log(resData);
 
     setPurchase(purchase.filter(purchase => purchase._id !== id));
+    alert("deleted purchase successfully.");
   }
 
   useEffect(() => {

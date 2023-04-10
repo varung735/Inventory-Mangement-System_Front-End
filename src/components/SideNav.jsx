@@ -17,34 +17,37 @@ function SideNav({ link }) {
    
    //handles logout feature
    const logout = async () => {
-      try {
+      // try {
 
-         const res = await fetch('https://ims-backend-3u4x.onrender.com/employees/logout', {
-            method: 'GET',
-            dataType: 'json',
-            headers: {
-               'Accept': 'application/json',
-               'content-Type': 'application/json',
-               'token': Cookies.get()
-            },
-            credentials: 'include'
-         });
+      //    const res = await fetch('https://ims-backend-3u4x.onrender.com/employees/logout', {
+      //       method: 'GET',
+      //       dataType: 'json',
+      //       headers: {
+      //          'Accept': 'application/json',
+      //          'content-Type': 'application/json',
+      //          'token': Cookies.get()
+      //       },
+      //       credentials: 'include'
+      //    });
 
-         const resData = await res.json();
-         // console.log(resData);
+      //    const resData = await res.json();
+      //    console.log(resData);
 
-         if (resData.success) {
-            Cookies.remove('user-role');
-            Cookies.remove('token');
-            navigate('/');
-         }
-         else {
-            console.log(resData.error)
-         }
+      //    if (resData.success) {
+      //       Cookies.remove('user-role');
+      //       Cookies.remove('token');
+      //       navigate('/');
+      //    }
+      //    else {
+      //       console.log(resData.error)
+      //    }
 
-      } catch (error) {
-         console.log(error);
-      }
+      // } catch (error) {
+      //    console.log(error);
+      // }
+
+      Cookies.remove('token');
+      navigate('/');
    }
 
    return (

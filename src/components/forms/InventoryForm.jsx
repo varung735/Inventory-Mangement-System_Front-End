@@ -33,6 +33,7 @@ function InventoryForm({ inventory, setInventory, operation, updateItem }) {
     console.log(resData);
 
     setInventory(inventory => [...inventory, resData.added_inventory]);
+    alert("added inventory item successfully.");
   }
 
   const updateInventory = async (id) => {
@@ -60,7 +61,7 @@ function InventoryForm({ inventory, setInventory, operation, updateItem }) {
     setInventory(inventory.filter(inventory => inventory._id !== id));
     setInventory(inventory => [...inventory, resData.updated_inventory]);
 
-    alert("Inventory Updated");
+    alert("updated inventory successfully.");
   }
 
   const handleSubmit = (e) => {

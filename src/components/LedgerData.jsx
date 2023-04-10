@@ -49,6 +49,8 @@ function LedgerData() {
 
         const resData = await res.json();
         console.log(resData);
+
+        alert("deleted ledger successfully.");
     }
 
     //function to delete a single entry inside a ledger account
@@ -70,6 +72,8 @@ function LedgerData() {
 
         const resData = await res.json();
         console.log(resData);
+
+        alert("deleted entry successfully.");
     }
 
     useEffect(() => {

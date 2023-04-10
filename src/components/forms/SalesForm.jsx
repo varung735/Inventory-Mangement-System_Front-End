@@ -51,6 +51,7 @@ function SalesForm({ sales, setSales, operation, updateItem }) {
     //with the setSales function it will the sales value in useSate in file "SalesData.jsx"
     //In simple words, The object will appear soon after we add the value
     setSales(sales => [...sales, resData.sale]);
+    alert("added sale successfully.");
   }
 
   // to update a existing sale in DB
@@ -81,6 +82,8 @@ function SalesForm({ sales, setSales, operation, updateItem }) {
 
     setSales(sales.filter(sale => sale._id !== id));
     setSales(sales => [...sales, resData.updated_sale]);
+
+    alert("updated sale successfully.");
   }
 
   const handleSubmit = (e) => {

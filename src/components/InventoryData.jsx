@@ -50,6 +50,7 @@ function InventoryData() {
     // console.log(resData);
 
     setInventory(inventory.filter(inventory => inventory._id !== id));
+    alert("deleted inventory item successfully.");
   }
 
   useEffect(() => {

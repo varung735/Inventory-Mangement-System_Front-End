@@ -41,9 +41,10 @@ function StocksForm({ stock, setStock, operation, updateItem }) {
     });
 
     const resData= await res.json();
-    console.log(resData);
+    // console.log(resData);
 
     setStock(stock => [...stock, resData.added_stock]);
+    alert("added stock successfully.");
   }
 
   const updateStock = async (id) => {
@@ -68,12 +69,12 @@ function StocksForm({ stock, setStock, operation, updateItem }) {
     });
 
     const resData= await res.json();
-    console.log(resData);
+    // console.log(resData);
 
     setStock(stock.filter(stock => stock._id !== id));
     setStock(stock => [...stock, resData.updated_stock]);
 
-    alert("Stock Updated");
+    alert("updated stock successfully.");
   }
 
   const handleSubmit = (e) => {

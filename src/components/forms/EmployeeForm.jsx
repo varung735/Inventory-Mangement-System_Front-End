@@ -55,9 +55,10 @@ function EmployeeForm({ employee, setEmployee, operation, updateItem }) {
     });
 
     const resData = await res.json();
-    console.log(resData);
+    // console.log(resData);
 
     setEmployee(employee => [...employee, resData.employee_data]);
+    alert("added employee successfully.");
   }
 
   const updateEmployee = async (id) => {
@@ -93,7 +94,7 @@ function EmployeeForm({ employee, setEmployee, operation, updateItem }) {
     setEmployee(employee.filter(employee => employee._id !== id));
     setEmployee(employee => [...employee, resData.employee_data]);
 
-    alert("Employee Updated Successfully.");
+    alert("updated employee successfully.");
   }
 
   const handleSubmit = (e) => {

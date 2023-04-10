@@ -48,6 +48,7 @@ function SalesData() {
     // console.log(resData);
 
     setSales(sales.filter(sale => sale._id !== id));
+    alert("sale deleted successfully.");
   }
 
   useEffect(() => {

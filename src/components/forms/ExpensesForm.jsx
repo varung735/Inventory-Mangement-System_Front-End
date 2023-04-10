@@ -33,6 +33,7 @@ function ExpensesForm({ expense, setExpense, operation, updateItem }) {
     console.log(resData);
 
     setExpense(expense => [...expense, resData.added_expense]);
+    alert("added expense successfully.");
   }
 
   const updateExpense = async (id) => {
@@ -60,7 +61,7 @@ function ExpensesForm({ expense, setExpense, operation, updateItem }) {
     setExpense(expense.filter(expense => expense._id !== id));
     setExpense(expense => [...expense, resData.updated_expense]);
 
-    alert("Expense Updated");
+    alert("updated expense successfully.");
   }
 
   const handleSubmit = (e) => {

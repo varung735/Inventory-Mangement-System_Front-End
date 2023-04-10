@@ -34,7 +34,7 @@ function Dashboard() {
     });
     
     const resData = await res.json();
-    console.log(resData.employee);
+    // console.log(resData.employee);
     
     Cookies.set('user-role', resData.employee.role);
  }

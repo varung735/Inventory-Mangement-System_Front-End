@@ -45,9 +45,10 @@ function PurchasesForm({ purchase, setPurchase, operation, updateItem }) {
     });
 
     const resData = await res.json();
-    console.log(resData);
+    // console.log(resData);
 
     setPurchase(purchase => [...purchase, resData.purchase]);
+    alert("added purchase successfully.");
   }
 
   //to update the existing data in DB
@@ -74,12 +75,11 @@ function PurchasesForm({ purchase, setPurchase, operation, updateItem }) {
     });
 
     const resData = await res.json();
-    console.log(resData);
+    // console.log(resData);
 
     setPurchase(purchase.filter(purchase => purchase._id !== id));
     setPurchase(purchase => [...purchase, resData.updated_purchase]);
-
-    alert("Purchase Updated.");
+    alert("updated purchase successfully.");
   }
 
   const handleSubmit = (e) => {

@@ -25,7 +25,7 @@ function EmployeesData() {
     });
 
     const resData = await res.json();
-    console.log(resData.employees);
+    // console.log(resData.employees);
 
     setEmployees(resData.employees);
   }
@@ -47,6 +47,7 @@ function EmployeesData() {
     // console.log(resData);
 
     setEmployees(employees.filter(employee => employee._id !== id));
+    alert("deleted employee successfully.");
   }
 
   useEffect(() => {
