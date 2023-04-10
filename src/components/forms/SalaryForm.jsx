@@ -87,7 +87,7 @@ function SalaryForm({ salary, setSalary, operation, updateItem, empId }) {
 
         <div className={formsCSS.formDiv}>
           <label>Amount</label>
-          <input type="text" placeholder='Enter the Category' className={formsCSS.input}
+          <input type="text" placeholder='Enter the Salary Amount' className={formsCSS.input}
            value={amount} onChange={(e) => setAmount(e.target.value)}/>
         </div>
 

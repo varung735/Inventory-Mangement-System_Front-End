@@ -86,13 +86,13 @@ function InventoryForm({ inventory, setInventory, operation, updateItem }) {
 
         <div className={formsCSS.formDiv}>
           <label>Inventory Name</label>
-          <input type="text" placeholder='Enter the Expense Name' className={formsCSS.input}
+          <input type="text" placeholder='Enter the Inventory Name' className={formsCSS.input}
             value={itemName} onChange={(e) => setItemName(e.target.value)}/>
         </div>
 
         <div className={formsCSS.formDiv}>
           <label>Inventory Type</label>
-          <input type="text" placeholder='Enter the Expense Type' className={formsCSS.input} 
+          <input type="text" placeholder='Enter the Inventory Type' className={formsCSS.input} 
             value={type} onChange={(e) => setType(e.target.value)}/>
         </div>
 
