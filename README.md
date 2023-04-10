@@ -1,70 +1,68 @@
-# Getting Started with Create React App
+# Inventory Management System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### <u>About Project</u>
 
-## Available Scripts
+This is a simple end-to-end closed appliaction which utilizes four simple CRUD operations. (Get, Post, Put, Delete). This web app keeps the data of the basic business operations which are Sales, Expenses, Inventory, Purchases, Stocks, Employees, their Salaries and lastly, Ledger.
 
-In the project directory, you can run:
+The application is divided into two modules which are :-
 
-### `npm start`
+ - Admin
+ - Employee
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Now, I'll let you know the powers of admin and that of the employees, briefly.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+ 1. ### <u>Admin</u>
+    
+    Admin will be able to perform CRUD operations on following modules:
 
-### `npm test`
+    - Sales
+    - Purchases
+    - Inventory
+    - Expenses
+    - Stocks
+    - Employees
+    - Salaries
+    - Ledger
+ 
+ 2. ### <u>Employee</u>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    Employee will be able to perform CRUD operations on following modules.
 
-### `npm run build`
+    - Sales
+    - Purchase
+    - Inventory
+    - Expenses
+    - Stocks
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### <u>Technology Used</u>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+ - React.js
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### <u>Time Taken</u>
 
-### `npm run eject`
+It took me around 3-4 months to build this project end-to-end.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### <u>Concepts Learned and Applied</u>
+- React Hooks(useState, useEffect)
+- Cookies (used js-cookies library to save cookies from frontend)
+- Module CSS
+- fetch API
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### <u>Future Enchancements</u>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- The app has to be responsive
+- After clicking on the button, the app takes some time to perform the operation. In order to fix this. The loading spinners will be added to avoid confusion.
+- The alerts will be replaced by snack bars for the smoother operation.
+- Currently, the same dummy image is used for the employees profile pic. So, new feature for uploading image is to be added.
+- Will add active link in the side bar.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### <u>Backend Repository</u>
 
-## Learn More
+[ims-backend](https://github.com/varung735/Inventory-Management-System-BackEnd)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### <u>Live Link</u>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The front end is hosted on netlify and the backend is hosted on render
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[Inventory Managemet System](https://ims-frontend.netlify.app/)
+     
