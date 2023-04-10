@@ -47,7 +47,7 @@ function SalaryData() {
       credentials: 'include'
     });
 
-    const resData = await res.json();
+    // const resData = await res.json();
     // console.log(resData);
 
     alert("deleted salary successfully.");

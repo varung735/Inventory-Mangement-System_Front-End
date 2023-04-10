@@ -32,7 +32,7 @@ function SalaryForm({ salary, setSalary, operation, updateItem, empId }) {
       credentials: 'include'
     });
 
-    const resData = await res.json();
+    // const resData = await res.json();
     // console.log(resData);
 
     alert("added salary successfully");
