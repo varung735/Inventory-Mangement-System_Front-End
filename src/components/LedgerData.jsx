@@ -63,11 +63,11 @@ function LedgerData() {
                 'content-Type': 'application/json',
                 'token': Cookies.get('token')
             },
-            body: {
+            body: JSON.stringify({
                 accoount_id: id,
                 entry_id: entryId
-            },
-            credentials: true
+            }),
+            credentials: 'include'
         });
 
         const resData = await res.json();

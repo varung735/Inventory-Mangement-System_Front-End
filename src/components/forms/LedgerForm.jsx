@@ -81,7 +81,8 @@ function LedgerForm({ ledger, setLedger, operation, updateItem, accountId }) {
       dataType: 'json',
       headers: {
         'Accept': 'application/json',
-        'content-Type': 'application/json'
+        'content-Type': 'application/json',
+        'token': Cookies.get('token')
       },
       body: JSON.stringify({
         account_id: accountId,
