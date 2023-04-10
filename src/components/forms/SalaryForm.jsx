@@ -16,7 +16,7 @@ function SalaryForm({ salary, setSalary, operation, updateItem, empId }) {
   const [amount, setAmount] = useState(updateItem.amount || "");
 
   const addSalary = async () => {
-    const res = await fetch('https://ims-backend-3u4x.onrender.com/salaries/addSalary', {
+    await fetch('https://ims-backend-3u4x.onrender.com/salaries/addSalary', {
       method: 'POST',
       dataType: 'json',
       headers: {

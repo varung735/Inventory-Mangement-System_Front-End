@@ -32,7 +32,7 @@ function SalaryData() {
   }
 
   const deleteSalary = async (empId, salaryId) => {
-    const res = await fetch('https://ims-backend-3u4x.onrender.com/salaries/deleteSalary', {
+    await fetch('https://ims-backend-3u4x.onrender.com/salaries/deleteSalary', {
       method: 'DELETE',
       dataType: 'json',
       headers: {
