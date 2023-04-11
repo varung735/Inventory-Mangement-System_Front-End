@@ -11,7 +11,7 @@ function Login() {
 
   useEffect(() => {
     alert("Use email: admin54@gmail, password: admin@123 for admin's account. and use email: ashok43@gmail, password: employee@123 for employee's account");
-  })
+  }, [])
 
   //to handle the login
   const login = async () => {
