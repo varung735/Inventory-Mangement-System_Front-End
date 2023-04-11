@@ -64,5 +64,18 @@ It took me around 3-4 months to build this project end-to-end.
 
 The front end is hosted on netlify and the backend is hosted on render
 
+If you're using the app use:
+
+for, admin's account
+
+email: admin54@gmail
+password: admin@123
+
+for employee's account
+
+email: ashok34@gmail
+password: employee@123
+
+
 [Inventory Managemet System](https://ims-frontend.netlify.app/)
      
