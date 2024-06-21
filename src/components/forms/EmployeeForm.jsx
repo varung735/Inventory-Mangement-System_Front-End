@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import formsCSS from '../../styles/form.module.css';
-import Cookies from 'js-cookie';
+import { postRequest, putRequest } from '../../API/api';
 
 function EmployeeForm({ employee, setEmployee, operation, updateItem }) {
 
@@ -26,73 +26,49 @@ function EmployeeForm({ employee, setEmployee, operation, updateItem }) {
   const [role, setRole] = useState(updateItem.role || "");
   const [password, setPassword] = useState(""); //As We are not giving admin the power to update employee's passwords
 
-  const addEmployee = async () => {
-    const res = await fetch('https://ims-backend-3u4x.onrender.com/employees/addEmployee', {
-      method: 'POST',
-      dataType: 'json',
-      headers: {
-        'Accept': 'application/json',
-        'content-Type': 'application/json',
-        'token': Cookies.get('token')
-      },
-      body: JSON.stringify({
-        emp_name: empName,
-        designation: designation,
-        address: address,
-        aadhar_no: aadharNo,
-        pan_no: panNo,
-        ac_no: acNo,
-        bank_name: bankName,
-        ifsc_code: ifscCode,
-        contact_no: contactNo,
-        email: email,
-        hired_on: hiredOn,
-        emp_status: empStatus,
-        role: role,
-        password: password
-      }),
-      credentials: 'include'
+  const addEmployee = () => {
+    const employee_data = postRequest('/employees/addEmployee', {
+      emp_name: empName,
+      designation: designation,
+      address: address,
+      aadhar_no: aadharNo,
+      pan_no: panNo,
+      ac_no: acNo,
+      bank_name: bankName,
+      ifsc_code: ifscCode,
+      contact_no: contactNo,
+      email: email,
+      hired_on: hiredOn,
+      emp_status: empStatus,
+      role: role,
+      password: password
     });
 
-    const resData = await res.json();
-    // console.log(resData);
+    console.log(employee_data)
 
-    setEmployee(employee => [...employee, resData.employee_data]);
+    setEmployee(employee => [...employee, employee_data.employee_data]);
     alert("added employee successfully.");
   }
 
   const updateEmployee = async (id) => {
-    const res = await fetch(`https://ims-backend-3u4x.onrender.com/employees/updateEmployee/${id}` , {
-      method: 'PUT',
-      dataType: 'json',
-      headers: {
-        'Accept': 'application/json',
-        'content-Type': 'application/json',
-        'token': Cookies.get('token')
-      },
-      body: JSON.stringify({
-        emp_name: empName,
-        designation: designation,
-        address: address,
-        aadhar_no: aadharNo,
-        pan_no: panNo,
-        ac_no: acNo,
-        bank_name: bankName,
-        ifsc_code: ifscCode,
-        contact_no: contactNo,
-        email: email,
-        hired_on: hiredOn,
-        emp_status: empStatus,
-        role: role
-      }),
-      credentials: 'include'
+    const employeeData = putRequest(`employees/updateEmployee/${id}`,{
+      emp_name: empName,
+      designation: designation,
+      address: address,
+      aadhar_no: aadharNo,
+      pan_no: panNo,
+      ac_no: acNo,
+      bank_name: bankName,
+      ifsc_code: ifscCode,
+      contact_no: contactNo,
+      email: email,
+      hired_on: hiredOn,
+      emp_status: empStatus,
+      role: role
     });
 
-    const resData = await res.json();
-    console.log(resData);
-
     setEmployee(employee.filter(employee => employee._id !== id));
-    setEmployee(employee => [...employee, resData.employee_data]);
+    setEmployee(employee => [...employee, employeeData.employee_data]);
 
     alert("updated employee successfully.");
   }
@@ -100,6 +76,7 @@ function EmployeeForm({ employee, setEmployee, operation, updateItem }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    console.log(operation);
     if(operation === "updateEmployee"){
       updateEmployee(updateItem._id);
     }

@@ -1,0 +1,29 @@
+.body{
+    padding: 0.5%;
+    height: 50px;
+    width: 300px;
+    position: absolute;
+    top: 90%;
+    left: 79%;
+    border-radius: 15px;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 17px;
+}
+
+.cross {
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+}
+
+.message {
+    margin: 0;
+    padding: 0;
+    font-size: 0.7rem;
+}

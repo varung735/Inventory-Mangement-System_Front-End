@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import formsCSS from '../../styles/form.module.css';
-import Cookies from 'js-cookie';
+import { postRequest, putRequest } from '../../API/api';
 
 function SalesForm({ sales, setSales, operation, updateItem }) {
 
@@ -22,66 +22,30 @@ function SalesForm({ sales, setSales, operation, updateItem }) {
   
   //to add a sale in the DB
   const addSales = async () => {
-
-    const res = await fetch('https://ims-backend-3u4x.onrender.com/sales/addSales', {
-      method: 'POST',
-      dataType: 'json',
-      headers: {
-        'Accept': 'application/json',
-        'content-Type': 'application/json',
-        'token': Cookies.get('token')
-      },
-      body: JSON.stringify({
-        product_name: productName,
-        type: type,
-        selling_price: sellingPrice,
-        sold_at: soldAt,
-        units_sold: unitsSold,
-        unit: unit,
-        date: date,
-        added_by: addedBy
-      }),
-      credentials: 'include'
+    const saleData = await postRequest('sales/addSales', {
+      product_name: productName,
+      type: type,
+      selling_price: sellingPrice,
+      sold_at: soldAt,
+      units_sold: unitsSold,
+      unit: unit,
+      date: date,
+      added_by: addedBy
     });
-
-    const resData = await res.json();
-    console.log(resData);
 
     //It take the previous array spreaded out with spread operator and will add the new object with the old array
     //with the setSales function it will the sales value in useSate in file "SalesData.jsx"
     //In simple words, The object will appear soon after we add the value
-    setSales(sales => [...sales, resData.sale]);
+    setSales(sales => [...sales, saleData.sale]);
     alert("added sale successfully.");
   }
 
   // to update a existing sale in DB
   const updateSales = async (id) => {
-    const res = await fetch(`https://ims-backend-3u4x.onrender.com/sales/updateSales/${id}`, {
-      method: 'PUT',
-      dataType: 'json',
-      headers: {
-        'Accept': 'application/json',
-        'content-Type': 'application/json',
-        'token': Cookies.get('token')
-      },
-      body: JSON.stringify({
-        product_name: productName,
-        type: type,
-        selling_price: sellingPrice,
-        sold_at: soldAt,
-        units_sold: unitsSold,
-        unit: unit,
-        date: date,
-        added_by: addedBy
-      }),
-      credentials: 'include'
-    });
-
-    const resData = await res.json();
-    console.log(resData);
+    const updatedSale = await putRequest(`sales/updateSales/${id}`)
 
     setSales(sales.filter(sale => sale._id !== id));
-    setSales(sales => [...sales, resData.updated_sale]);
+    setSales(sales => [...sales, updatedSale.updated_sale]);
 
     alert("updated sale successfully.");
   }

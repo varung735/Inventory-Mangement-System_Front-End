@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import displayDataCSS from "../styles/displaydata.module.css";
 import Modal from './Modal';
-import Cookies from 'js-cookie';
+import { deleteRequest, getRequest } from '../API/api';
 
 function ExpenseData() {
 
@@ -16,40 +16,13 @@ function ExpenseData() {
 
   const getExpenses = async () => {
 
-    const res = await fetch('https://ims-backend-3u4x.onrender.com/expenses/getExpenses', {
-      method: 'GET',
-      dataType: 'json',
-      headers: {
-        'Accept': 'application/json',
-        'content-Type': 'application/json',
-        'token': Cookies.get('token')
-      },
-      credentials: 'include'
-    });
-
-    const resData = await res.json();
-    // console.log(resData.expenses);
-
-    setExpense(resData.expenses);
+    const expenses = await getRequest('expenses/getExpenses');
+    setExpense(expenses.expenses);
   }
 
   const deleteExpenses = async (id) => {
 
-    await fetch(`https://ims-backend-3u4x.onrender.com/expenses/deleteExpenses/${id}`, {
-      method: 'DELETE',
-      dataType: 'json',
-      headers: {
-        'Accept': 'application/json',
-        'content-Type': 'application/json',
-        'token': Cookies.get('token')
-      },
-      credentials: 'include'
-    }); //for debugging, you can put this code block to a variable like "const res = await fetch"
-    // the commented code in line below will log the response below in the console
-
-    // const resData = await res.json();
-    // console.log(resData);
-
+    await deleteRequest(`expenses/deleteExpenses/${id}`);
     setExpense(expense.filter(expense => expense._id !== id));
     alert("deleted expense successfully.");
   }

@@ -1,7 +1,10 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import Dashboard from './components/Dashboard';
-import Login from './components/Login';
+import AdminDasboard from './pages/AdminDashboard';
+import EmployeeDashboard from './pages/EmployeeDashboard';
+import Login from './pages/Login';
+import ForgotPassword from './pages/ForgotPassword';
+import VerifyEmail from './pages/VerifyEmail';
 
 function App() {
 
@@ -9,11 +12,12 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route exact path='/' element={<Login />} />
-        <Route exact path='/dashboard' element={<Dashboard />} />
+        <Route exact path='/verify/email' element={<VerifyEmail />} />
+        <Route exact path='/forgot/password' element={<ForgotPassword />} />
+        <Route exact path='/admin' element={<AdminDasboard />} />
+        <Route exact path='/employee' element={<EmployeeDashboard />} />
       </Routes>
     </BrowserRouter>
-      // <Dashboard />
-      // <Login />
   );
 }
 

@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from "js-cookie";
 import dashboardCSS from '../styles/dashboard.module.css';
-import PurchaseData from './PurchaseData';
+// import PurchaseData from './PurchaseData';
 import SalesData from './SalesData';
-import SideNav from './SideNav';
-import ExpenseData from "./ExpenseData";
-import InventoryData from "./InventoryData";
-import StockData from "./StockData";
-import EmployeesData from "./EmployeesData";
-import SalaryData from "./SalaryData";
-import LedgerData from "./LedgerData";
+import SideNav from '../components/SideNav';
+// import ExpenseData from "./ExpenseData";
+// import InventoryData from "./InventoryData";
+// import StockData from "./StockData";
+// import EmployeesData from "./EmployeesData";
+// import SalaryData from "./SalaryData";
+// import LedgerData from "./LedgerData";
 import { getRequest } from '../API/api';
 
 function Dashboard() {
@@ -53,13 +53,13 @@ function Dashboard() {
         {/* Main Content */}
         <div className={dashboardCSS.displayData} style={sideNavOpen ? {width: "84%"} : {width: "100%"}}>
           {sidenavLink === "sales" && <SalesData />}
-          {sidenavLink === "purchases" && <PurchaseData />}
+          {/* {sidenavLink === "purchases" && <PurchaseData />}
           {sidenavLink === "expenses" && <ExpenseData />}
           {sidenavLink === "inventory" && <InventoryData />}
           {sidenavLink === "stock" && <StockData />}
           {sidenavLink === "employees" && <EmployeesData />}
           {sidenavLink === "salary" && <SalaryData />}
-          {sidenavLink === "ledger" && <LedgerData />}
+          {sidenavLink === "ledger" && <LedgerData />} */}
         </div>
 
       </div>
