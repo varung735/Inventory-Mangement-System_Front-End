@@ -5,6 +5,8 @@ import EmployeeDashboard from './pages/EmployeeDashboard';
 import Login from './pages/Login';
 import ForgotPassword from './pages/ForgotPassword';
 import VerifyEmail from './pages/VerifyEmail';
+import ResetPassword from './pages/ResetPassword';
+import Home from './pages/admin/Home';
 
 function App() {
 
@@ -13,8 +15,11 @@ function App() {
       <Routes>
         <Route exact path='/' element={<Login />} />
         <Route exact path='/verify/email' element={<VerifyEmail />} />
+        <Route exact path='/reset/password' element={<ResetPassword />} />
         <Route exact path='/forgot/password' element={<ForgotPassword />} />
-        <Route exact path='/admin' element={<AdminDasboard />} />
+        <Route exact path='/admin' element={<AdminDasboard />} >
+          <Route exact path='home' element={<Home />} />
+        </Route>
         <Route exact path='/employee' element={<EmployeeDashboard />} />
       </Routes>
     </BrowserRouter>

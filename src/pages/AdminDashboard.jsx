@@ -1,30 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from "js-cookie";
 import dashboardCSS from '../styles/dashboard.module.css';
-// import PurchaseData from './PurchaseData';
-import SalesData from './SalesData';
 import SideNav from '../components/SideNav';
-// import ExpenseData from "./ExpenseData";
-// import InventoryData from "./InventoryData";
-// import StockData from "./StockData";
-// import EmployeesData from "./EmployeesData";
-// import SalaryData from "./SalaryData";
-// import LedgerData from "./LedgerData";
-import { getRequest } from '../API/api';
+import { Outlet } from 'react-router-dom';
+// import { getRequest } from '../API/api';
 
 function Dashboard() {
   const [sideNavOpen, setSideNavOpen] = useState(false);
-  const [sidenavLink, setSideNavLink] = useState("sales");
-
-  const getSideNavLink = (link) => {
-    setSideNavLink(link);
-  }
 
   const loggedUserInfo = async () => {
-    const userId = Cookies.get('user-role');
-    // console.log(userId);
+    const user = await Cookies.get('user');
+    console.log(JSON.parse(Cookies.get('user')));
+    console.log(Cookies.get('token'));
 
-    const user = await getRequest(`employees/getEmployee/${userId}`);
+    // const user = await getRequest(`employees/getEmployee/${userId}`);
     
     Cookies.set('user-role', user.employee.role);
  }
@@ -47,19 +36,12 @@ function Dashboard() {
 
         {/* sidenav */}
         <div style={sideNavOpen ? {width: "16%"} : {width: "0%"}}>
-          {sideNavOpen && <SideNav link={getSideNavLink}/>}
+          {sideNavOpen && <SideNav />}
         </div>
 
         {/* Main Content */}
         <div className={dashboardCSS.displayData} style={sideNavOpen ? {width: "84%"} : {width: "100%"}}>
-          {sidenavLink === "sales" && <SalesData />}
-          {/* {sidenavLink === "purchases" && <PurchaseData />}
-          {sidenavLink === "expenses" && <ExpenseData />}
-          {sidenavLink === "inventory" && <InventoryData />}
-          {sidenavLink === "stock" && <StockData />}
-          {sidenavLink === "employees" && <EmployeesData />}
-          {sidenavLink === "salary" && <SalaryData />}
-          {sidenavLink === "ledger" && <LedgerData />} */}
+          <Outlet />
         </div>
 
       </div>

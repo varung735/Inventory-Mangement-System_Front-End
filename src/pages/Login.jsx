@@ -35,11 +35,13 @@ function Login() {
                 setSuccess(response.success);
                 setMessage(response.message);
                 snackBar();
-                navigate('/verify/email');
+                setTimeout(() => {
+                    navigate(`/verify/email?email=${email}`);
+                }, 3000)
                 return;
             }
             
-            if(response.user.access !== 'GRANTED') {
+            if(response.user.access === 'REVOKED') {
                 setSuccess(response.success);
                 setMessage(response.message);
                 snackBar();
@@ -52,6 +54,7 @@ function Login() {
                 setMessage(response.message);
                 snackBar();
                 Cookies.set('token', response.token, { expires: 1 });
+                Cookies.set('user', JSON.stringify(response.user), { expires: 1 });
                 navigate('/admin');
             }
             else if(response.user.role === 'EMPLOYEE') {
@@ -59,6 +62,7 @@ function Login() {
                 setMessage(response.message);
                 snackBar();
                 Cookies.set('token', response.token, { expires: 1 });
+                Cookies.set('user', JSON.stringify(response.user), { expires: 1 });
                 navigate('/employee');
             }
             else {
