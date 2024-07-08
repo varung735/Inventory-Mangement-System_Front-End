@@ -1,34 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import Cookies from "js-cookie";
+import React, { useState } from 'react';
 import dashboardCSS from '../styles/dashboard.module.css';
 import SideNav from '../components/SideNav';
 import { Outlet } from 'react-router-dom';
 // import { getRequest } from '../API/api';
 
 function Dashboard() {
-  const [sideNavOpen, setSideNavOpen] = useState(false);
-
-  const loggedUserInfo = async () => {
-    const user = await Cookies.get('user');
-    console.log(JSON.parse(Cookies.get('user')));
-    console.log(Cookies.get('token'));
-
-    // const user = await getRequest(`employees/getEmployee/${userId}`);
-    
-    Cookies.set('user-role', user.employee.role);
- }
- 
- useEffect(() => {
-    loggedUserInfo();
- }, []);
-
+  const [sideNavOpen, setSideNavOpen] = useState(true);
+  
   return (
     <div className={dashboardCSS.container}>
 
       {/* NavBar */}
       <div className={dashboardCSS.navbar}>
         <img src="/images/bars.svg" alt="bars" className={dashboardCSS.barsIcon} onClick={()=>{setSideNavOpen(!sideNavOpen)}}/>
-        <h1 className={dashboardCSS.navbarTitle}>Inventory Management System</h1>
+        <h1 className={dashboardCSS.navbarTitle}>Store Management System</h1>
       </div>
 
       {/* Main Content */}

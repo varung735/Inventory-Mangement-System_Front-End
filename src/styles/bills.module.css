@@ -1,0 +1,105 @@
+.generateBillContainer{
+    width: 45%;
+    height: 100%;
+    background-color: #e8e9e8;
+}
+
+.customerDetails{
+    padding: 1%;
+    width: 100%;
+    height: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.custHeading{
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.custFormHolder{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+}
+
+.custLabel{
+    font-size: 0.8rem;
+}
+
+.custInput{
+    width: 100%;
+    padding: 0.7%;
+}
+
+.custButton{
+    width: 90%;
+    padding: 1.5%;
+    outline: 0;
+    border: 0;
+    border-radius: 10px;
+    background-color: #8ABAE0;
+    cursor: pointer;
+}
+
+.addItems{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.itemSearchHolder{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.searchDiv{
+    width: 90%;
+    background-color: #fff;
+    overflow-y: auto;
+}
+
+.searchItemDiv{
+    height: 20px;
+}
+
+.searchItemDiv :hover{
+    background-color: #8ABAE0;
+}
+
+.searchItem{
+    padding-left: 1%;
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+
+.generatedBillsTable{
+    width: 65%;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.billItems{
+    height: 93%
+}
+
+.billTotal{
+    height: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.totalHeading{
+    margin-right: 1%;
+    font-weight: 400;
+}
