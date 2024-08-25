@@ -63,9 +63,10 @@
 }
 
 .searchDiv{
+    height: 90px;
     width: 90%;
     background-color: #fff;
-    overflow-y: auto;
+    overflow-y: scroll;
 }
 
 .searchItemDiv{
@@ -102,4 +103,10 @@
 .totalHeading{
     margin-right: 1%;
     font-weight: 400;
+}
+
+.printBillDiv{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }

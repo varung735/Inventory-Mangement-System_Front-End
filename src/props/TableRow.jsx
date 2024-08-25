@@ -1,10 +1,10 @@
 import React from 'react';
 import displayDataCSS from "../styles/displaydata.module.css";
 
-function TableRow({ prop, deleteFunction, modal, setModal ,setOperation, setUpdateItem }) {
+function TableRow({ prop, operations, operationFunctions }) {
     const propValues = Object.values(prop);
     propValues.shift();
-    propValues.pop();
+    // propValues.pop();
 
     // const formatDate = (date) => {
     //     const formatedDate = new Date(date).toISOString().split('T')[0];
@@ -16,8 +16,13 @@ function TableRow({ prop, deleteFunction, modal, setModal ,setOperation, setUpda
             { propValues && propValues.map((item, index) => {
                 return <td key={index} >{item}</td>
             }) }
-            <td><button className={displayDataCSS.tabBtn} onClick={() => { setModal(!modal); setOperation("updateSales"); setUpdateItem(prop) }}>Update</button></td>
-            <td><button className={displayDataCSS.tabBtn} onClick={() => { deleteFunction(prop._id) }}>Delete</button></td>
+            { operations && operations.map((item, index) => {
+                return(
+                    <td key={index}>
+                        <button className={displayDataCSS.tabBtn} onClick={() => { operationFunctions[index](prop._id) }}>{item}</button>
+                    </td>   
+                )
+            }) }
         </tr>
     )
 }

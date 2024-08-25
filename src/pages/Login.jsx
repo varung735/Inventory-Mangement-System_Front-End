@@ -57,13 +57,21 @@ function Login() {
                 Cookies.set('user', JSON.stringify(response.user), { expires: 1 });
                 navigate('/admin');
             }
-            else if(response.user.role === 'EMPLOYEE') {
+            else if(response.user.role === 'INVENTORY-MANAGER') {
                 setSuccess(response.success);
                 setMessage(response.message);
                 snackBar();
                 Cookies.set('token', response.token, { expires: 1 });
                 Cookies.set('user', JSON.stringify(response.user), { expires: 1 });
-                navigate('/employee');
+                navigate('/stock');
+            }
+            else if(response.user.role === 'CASHIER') {
+                setSuccess(response.success);
+                setMessage(response.message);
+                snackBar();
+                Cookies.set('token', response.token, { expires: 1 });
+                Cookies.set('user', JSON.stringify(response.user), { expires: 1 });
+                navigate('/billing');
             }
             else {
                 setSuccess(response.success);

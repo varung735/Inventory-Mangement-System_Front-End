@@ -10,5 +10,16 @@ export const routes_v_1 = {
         updateEmail: 'v1/users/update/email',
         grantAccess: 'v1/users/access/grant',
         revokeAccess: 'v1/users/access/revoke'
+    },
+    stocks: {
+        getByAlphabet: 'v1/stocks/get_by_alphabet',
+        searchStock: 'v1/stocks/search',
+        getStocks: 'v1/stocks/get',
+        addStock: 'v1/stocks/add',
+        restock: 'v1/stocks/restock',
+        deleteStock: 'v1/stocks/delete'
+    },
+    bills: {
+        generate: 'v1/bills/generate'
     }
 }

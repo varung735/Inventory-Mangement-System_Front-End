@@ -10,6 +10,7 @@ import Sales from './pages/admin/Sales';
 import Stock from './pages/admin/Stock';
 import Users from './pages/admin/Users';
 import BillingDashboard from './pages/BillingDashboard';
+import StockDashboard from './pages/StockDashboard';
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
           <Route exact path='users' element={<Users />} />
         </Route>
         <Route exact path='/billing' element={<BillingDashboard />} />
+        <Route exact path='/stock' element={<StockDashboard />} />
       </Routes>
     </BrowserRouter>
   );

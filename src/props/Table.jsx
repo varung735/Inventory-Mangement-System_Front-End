@@ -2,10 +2,7 @@ import React from 'react';
 import displayDataCSS from "../styles/displaydata.module.css";
 import TableRow from "./TableRow";
 
-function Table({ tableheadings, props, deleteFunction, modal, setModal, setOperation, setUpdateItem }) {
-
-  console.log(props);
-
+function Table({ tableheadings, props, operations, operationFunctions, deleteFunction, updateFunction }) {
   return (
     <div className={displayDataCSS.dataProp}>
       <table className={displayDataCSS.table}>
@@ -18,8 +15,7 @@ function Table({ tableheadings, props, deleteFunction, modal, setModal, setOpera
         </thead>
         <tbody>
           {props && props.map((item) => {
-            console.log(item);
-            return <TableRow key={item._id} prop={item} deleteFunction={deleteFunction} modal={modal} setModal={setModal} setOperation={setOperation} setUpdateItem={setUpdateItem}/>
+            return <TableRow key={item._id} prop={item} operations={operations} operationFunctions={operationFunctions} deleteFunction={deleteFunction} updateFunction={updateFunction} />
           })}
         </tbody>
       </table>

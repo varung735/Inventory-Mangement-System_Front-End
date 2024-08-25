@@ -83,12 +83,13 @@ export async function patchRequest(route, body) {
     }
 }
 
-export async function deleteRequest(route){
+export async function deleteRequest(route, body){
     try {
         const response = await fetch(`${api_link}/${route}`, {
             method: 'DELETE',
             dataType: 'json',
             headers: headers,
+            body: JSON.stringify(body),
             credentials: 'include'
         });
     
